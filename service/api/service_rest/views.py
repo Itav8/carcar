@@ -66,10 +66,10 @@ def list_technicians(request):
 
 
 @require_http_methods(["DELETE"])
-def delete_technician(request, pk):
+def delete_technician(request, employee_id):
     if request.method == "DELETE":
         try:
-            tech = Technician.objects.get(id=pk)
+            tech = Technician.objects.get(employee_id=employee_id)
             tech.delete()
             return JsonResponse(
                 tech,
@@ -126,8 +126,8 @@ def list_appointments(request):
                 {"message": "Invalid technician"},
                 status=400,
             )
-        status = Status.objects.get(name="Created")
-        content["status"] = status
+        # status = Status.objects.get(name="Created")       # STATUS DEFAULT PK=1 IN MODEL
+        # content["status"] = status
         Appointment.objects.create(**content)
         appointments = Appointment.objects.all()
         return JsonResponse(
@@ -188,3 +188,17 @@ def finish_appointment(request, pk):
         encoder=AppointmentListEncoder,
         safe=False,
     )
+
+
+@require_http_methods(["GET"])
+def list_statuses(request):
+    statuses = Status.objects.all()
+    data = []
+    for status in statuses:
+        data.append(
+            {
+                "pk": status.id,
+                "name": status.name,
+            }
+        )
+    return JsonResponse(data, safe=False)
