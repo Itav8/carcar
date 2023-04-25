@@ -57,3 +57,13 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f'{self.reason} - {self.vin}'
+
+    def cancel(self):
+        status = Status.objects.get(name="Canceled")
+        self.status = status
+        self.save()
+
+    def finish(self):
+        status = Status.objects.get(name="Finished")
+        self.status = status
+        self.save()

@@ -152,3 +152,39 @@ def delete_appointment(request, pk):
             return JsonResponse({"message": "Appointment does not exist"},
                                 status=400,
                                 )
+
+
+@require_http_methods(["PUT"])
+def cancel_appointment(request, pk):
+    try:
+        appointment = Appointment.objects.get(id=pk)
+        appointment.cancel()
+    except Appointment.DoesNotExist:
+        return JsonResponse(
+            {"message": "Invalid appointment"},
+            status=400,
+        )
+    appointments = Appointment.objects.all()
+    return JsonResponse(
+        {"appointments": appointments},
+        encoder=AppointmentListEncoder,
+        safe=False,
+    )
+
+
+@require_http_methods(["PUT"])
+def finish_appointment(request, pk):
+    try:
+        appointment = Appointment.objects.get(id=pk)
+        appointment.finish()
+    except Appointment.DoesNotExist:
+        return JsonResponse(
+            {"message": "Invalid appointment"},
+            status=400,
+        )
+    appointments = Appointment.objects.all()
+    return JsonResponse(
+        {"appointments": appointments},
+        encoder=AppointmentListEncoder,
+        safe=False,
+    )
