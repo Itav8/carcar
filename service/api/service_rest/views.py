@@ -37,33 +37,39 @@ class AppointmentListEncoder(ModelEncoder):
 def list_technicians(request):
     if request.method == "GET":
         technicians = Technician.objects.all()
-        data = []
-        for technician in technicians:
-            id = technician.id
-            employee_id = technician.employee_id
-            first_name = technician.first_name
-            last_name = technician.last_name
-            data.append(
-                {
-                    'id': id,
-                    'employee_id': employee_id,
-                    'first_name': first_name,
-                    'last_name': last_name,
-                }
-            )
+        # data = []
+        # for technician in technicians:
+        #     id = technician.id
+        #     employee_id = technician.employee_id
+        #     first_name = technician.first_name
+        #     last_name = technician.last_name
+        #     data.append(
+        #         {
+        #             'id': id,
+        #             'employee_id': employee_id,
+        #             'first_name': first_name,
+        #             'last_name': last_name,
+        #         }
+        #     )
         return JsonResponse(
             {"technicians": technicians},
             encoder=TechnicianListEncoder,
         )
     else:
         content = json.loads(request.body)
-        Technician.objects.create(**content)
-        technicians = Technician.objects.all()
-        return JsonResponse(
-            {"technicians": technicians},
-            encoder=TechnicianListEncoder,
-        )
-
+        try:
+            Technician.objects.create(**content)
+            technicians = Technician.objects.all()
+            return JsonResponse(
+                {"technicians": technicians},
+                encoder=TechnicianListEncoder,
+            )
+        except:
+            response = JsonResponse(
+                {"message": "Could not create the technician"}
+            )
+            response.status_code = 400
+            return response
 
 @require_http_methods(["DELETE"])
 def delete_technician(request, employee_id):
