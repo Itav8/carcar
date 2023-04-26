@@ -1,3 +1,4 @@
+from urllib import request
 import django
 import os
 import sys
@@ -11,10 +12,18 @@ django.setup()
 
 # Import models from sales_rest, here.
 # from sales_rest.models import Something
+from .sales_rest.models import AutomobileVO
+
+
+def get_automobile():
+    response = requests.get("http://inventory-api:8000/api/automobiles")
+    content = json.loads(response.content)
+    print(content)
+
 
 def poll():
     while True:
-        print('Sales poller polling for data')
+        print("Sales poller polling for data")
         try:
             # Write your polling logic, here
             pass
