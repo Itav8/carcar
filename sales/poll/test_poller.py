@@ -35,8 +35,9 @@ def mocked_requests_get(*args, **kwargs):
                 {"href": "/api/automobiles/3/","vin": "3", "sold": True},
             ]
         }
-        return MockResponse(data, json.dumps(data),200)
-
+        return MockResponse(data, json.dumps(data), 200)
+    # Error because of missing param when returning new instance of
+    # class MockResponse
     return MockResponse(None, 404)
 
 class Test_Poller(unittest.TestCase):
@@ -45,6 +46,8 @@ class Test_Poller(unittest.TestCase):
 
     def test_fetch(self, mock_get):
         AutomobileVO.objects.all().delete()
+        # False param could be because they were trying to
+        # NOT have it "poll" every minute
         poll(False)
         self.assertEqual(len(AutomobileVO.objects.all()), 3)
         AutomobileVO.objects.all().delete()

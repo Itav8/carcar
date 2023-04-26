@@ -1,11 +1,21 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">CarCar</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <NavLink className="navbar-brand" to="/">
+          CarCar
+        </NavLink>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -26,6 +36,39 @@ function Nav() {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink className="nav-link" to="/salespeople">
+                Salespeople
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/salespeople/create">
+                Add a Salesperson
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/customer">
+                Customers
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/customer/create">
+                Add a Customer
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/sales">
+                Sales
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/sales/create">
+                Add a Sale
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/sales/history">
+                Salesperson History
+              </NavLink>
               <NavLink className="nav-link" to="/technicians">
                 List Technicians
               </NavLink>
@@ -49,7 +92,7 @@ function Nav() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 export default Nav;
