@@ -8,6 +8,7 @@ from .views import (
     cancel_appointment,
     finish_appointment,
     list_statuses,
+    list_automobileVOs,
 )
 
 urlpatterns = [
@@ -45,5 +46,10 @@ urlpatterns = [
         "statuses/",
         list_statuses,
         name="list_statuses",
+    ),
+    path(
+        "automobileVOs/",
+        list_automobileVOs,
+        name="list_automobileVOs",
     ),
 ]

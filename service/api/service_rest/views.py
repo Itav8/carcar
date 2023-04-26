@@ -208,3 +208,16 @@ def list_statuses(request):
             }
         )
     return JsonResponse(data, safe=False)
+
+
+@require_http_methods(["GET"])
+def list_automobileVOs(request):
+    automobileVOs = AutomobileVO.objects.all()
+    data = []
+    for automobileVO in automobileVOs:
+        data.append(
+            {
+                "vin": automobileVO.vin,
+            }
+        )
+    return JsonResponse(data, safe=False)
