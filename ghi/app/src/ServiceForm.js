@@ -1,6 +1,8 @@
 import { React, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const ServiceForm = () => {
+    const navigate = useNavigate();
     const [technicians, setTechnicians] = useState([]);
     const [vin, setVin] = useState('');
     const [customer, setCustomer] = useState('');
@@ -77,6 +79,7 @@ const ServiceForm = () => {
             setReason('');
             // setLocationID('');
         }
+        navigate("/services");
     }
 
     const fetchData = async () => {

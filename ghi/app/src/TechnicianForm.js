@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const TechnicianForm = () => {
+    const navigate = useNavigate();
     const [firstName, setFirstName] = useState([]);
     const [lastName, setLastName] = useState([]);
     const [employeeID, setEmployeeID] = useState([]);
@@ -57,7 +58,7 @@ const TechnicianForm = () => {
             formAlert.append(wrapper);
 
         }
-        // navigate("/technicians");
+        navigate("/technicians");
     }
 
 
