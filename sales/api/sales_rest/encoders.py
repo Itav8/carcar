@@ -29,7 +29,7 @@ class PriceEncoder(json.JSONEncoder):
 
 class SaleEncoder(ModelEncoder):
     model = Sale
-    properties = ["automobile", "salesperson", "customer", "price"]
+    properties = ["id", "automobile", "salesperson", "customer", "price"]
     encoders = {
         "automobile": AutomobileEncoder(),
         "salesperson": SalespersonEncoder(),
