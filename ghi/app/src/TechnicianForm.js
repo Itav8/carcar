@@ -64,23 +64,29 @@ const TechnicianForm = () => {
 
   return (
     <div className='container'>
-        <form onSubmit={handleSubmit}>
-            <p>Please Create a Technician</p>
+    <div className="row">
+    <div className="offset-3 col-6">
+    <div className="shadow p-4 mt-4">
+    <h1 id="technicianAlert">Create a Technician</h1>
+        <form onSubmit={handleSubmit} id="create-technician-form">
 
-            <div className="mb-3">
+            <div className="form-floating mb-3">
                 <input value={firstName} onChange={handleFirstNameChange} required placeholder="firstName" type="text" id="firstName" name="firstName" className="form-control" />
-                <label htmlFor="firstName">The First Name</label>
+                <label htmlFor="firstName">First Name...</label>
             </div>
-            <div className="mb-3">
+            <div className="form-floating mb-3">
                 <input value={lastName} onChange={handleLastNameChange} required placeholder="Last Name" type="text" id="last_name" name="last_name" className="form-control" />
-                <label htmlFor="last_name">The Last Name</label>
+                <label htmlFor="last_name">Last Name...</label>
             </div>
-            <div id="employeeIdAlert" className="mb-3">
+            <div id="employeeIdAlert" className="form-floating mb-3">
                 <input value={employeeID} onChange={handleEmployeeIDChange} required placeholder="employeeID of Technician" type="text" id="employeeID" name="employeeID" className="form-control" />
-                <label htmlFor="employeeID">The Technician employeeID</label>
+                <label htmlFor="employeeID">EmployeeID...</label>
             </div>
             <button className='btn btn-lg btn-primary'>Create!</button>
         </form>
+        </div>
+        </div>
+        </div>
     </div>
   )
 }
