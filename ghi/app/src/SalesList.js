@@ -3,6 +3,22 @@ import React, { useEffect, useState } from "react";
 function SalesList() {
   const [sales, setSales] = useState([]);
 
+  const handleDelete = async (salesId) => {
+    const url = `http://localhost:8090/api/sales/${salesId}/`;
+
+    const fetchConfig = {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      setSales(sales.filter((sale) => sale.id !== salesId));
+    }
+  };
+
   useEffect(() => {
     fetchSales();
   }, []);
@@ -40,6 +56,9 @@ function SalesList() {
                 <td>{customerName}</td>
                 <td>{sale.automobile.vin}</td>
                 <td>${sale.price}</td>
+                <td>
+                  <button onClick={() => handleDelete(sale.id)}>Delete</button>
+                </td>
               </tr>
             );
           })}
