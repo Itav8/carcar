@@ -12,18 +12,18 @@ class Technician(models.Model):
 
 
 class AutomobileVO(models.Model):
-    color = models.CharField(max_length=50)
-    year = models.PositiveSmallIntegerField()
+    # color = models.CharField(max_length=50)
+    # year = models.PositiveSmallIntegerField()
     vin = models.CharField(max_length=17, unique=True)
-    sold = models.BooleanField(default=False)
+    # sold = models.BooleanField(default=False)
 
-    model = models.CharField(max_length=50)
+    # model = models.CharField(max_length=50)
 
-    def get_api_url(self):
-        return reverse("api_automobile", kwargs={"vin": self.vin})
+    # def get_api_url(self):
+    #     return reverse("api_automobile", kwargs={"vin": self.vin})
 
     def __str__(self):
-        return f'{self.model} - {self.vin}'
+        return self.vin
 
 
 class Status(models.Model):

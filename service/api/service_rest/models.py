@@ -5,30 +5,30 @@ from django.urls import reverse
 class Technician(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    employee_id = models.CharField(max_length=20, unique=True)
+    employee_id = models.CharField(max_length=20)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
 
 class AutomobileVO(models.Model):
-    color = models.CharField(max_length=50)
-    year = models.PositiveSmallIntegerField()
+    # color = models.CharField(max_length=50)
+    # year = models.PositiveSmallIntegerField()
     vin = models.CharField(max_length=17, unique=True)
-    sold = models.BooleanField(default=False)
+    # sold = models.BooleanField(default=False)
 
-    model = models.CharField(max_length=50)
+    # model = models.CharField(max_length=50)
 
-    def get_api_url(self):
-        return reverse("api_automobile", kwargs={"vin": self.vin})
+    # def get_api_url(self):
+    #     return reverse("api_automobile", kwargs={"vin": self.vin})
 
     def __str__(self):
-        return f'{self.model} - {self.vin}'
+        return self.vin
 
 
 class Status(models.Model):
     # 'Created', 'Canceled', or 'Finished'
-    id = models.PositiveSmallIntegerField(primary_key=True)     #  ???
+    # id = models.PositiveSmallIntegerField(primary_key=True)
     name = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
@@ -66,5 +66,10 @@ class Appointment(models.Model):
 
     def finish(self):
         status = Status.objects.get(name="Finished")
+        self.status = status
+        self.save()
+
+    def create(self):
+        status = Status.objects.get(name="Created")
         self.status = status
         self.save()

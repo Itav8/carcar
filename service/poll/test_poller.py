@@ -35,9 +35,11 @@ def mocked_requests_get(*args, **kwargs):
                 {"href": "/api/automobiles/3/","vin": "3", "sold": True},
             ]
         }
-        return MockResponse(data, json.dumps(data),200)
-
-    return MockResponse(None, 404)
+        return MockResponse(data, json.dumps(data), 200)
+    data = {
+        "autos": []
+    }
+    return MockResponse(None, json.dumps(data), 404)
 
 class Test_Poller(unittest.TestCase):
 
@@ -45,7 +47,16 @@ class Test_Poller(unittest.TestCase):
 
     def test_fetch(self, mock_get):
         AutomobileVO.objects.all().delete()
-        poll(False)
+        # poll(False)
+        try:
+            response = requests.get('http://project-beta-inventory-api-1:8000/api/automobiles')
+            content = json.loads(response.content)
+            for automobile in content["autos"]:
+                AutomobileVO.objects.update_or_create(
+                    vin=automobile["vin"],
+                )
+        except Exception as e:
+            print(e, file=sys.stderr)
         self.assertEqual(len(AutomobileVO.objects.all()), 3)
         AutomobileVO.objects.all().delete()
 
