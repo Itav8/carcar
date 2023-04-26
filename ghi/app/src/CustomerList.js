@@ -9,7 +9,6 @@ function CustomerList() {
 
       if (customersList.ok) {
         const data = await customersList.json();
-        console.log(data.customers);
         setCustomers(data.customers);
       }
     };

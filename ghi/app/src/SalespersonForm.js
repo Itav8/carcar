@@ -28,7 +28,6 @@ function SalespersonForm() {
     };
 
     const response = await fetch(url, fetchConfig);
-
     if (response.ok) {
       setFormData({
         firstName: "",
@@ -36,7 +35,6 @@ function SalespersonForm() {
         employeeId: "",
       });
     }
-    // navigate to salesperson list
     return navigate("/salespeople")
   };
 
