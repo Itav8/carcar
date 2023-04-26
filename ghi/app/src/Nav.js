@@ -1,11 +1,21 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">CarCar</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <NavLink className="navbar-brand" to="/">
+          CarCar
+        </NavLink>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -15,11 +25,21 @@ function Nav() {
                 Create Technician
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/salespeople">
+                Salespeople
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/salespeople/create">
+                Create Salesperson
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 export default Nav;
