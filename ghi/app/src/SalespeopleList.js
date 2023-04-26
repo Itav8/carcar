@@ -11,7 +11,6 @@ function SalespeopleList() {
 
       if (salespeopleList.ok) {
         const data = await salespeopleList.json();
-        console.log(data);
         setSalespeople(data.salespeople);
       }
     };
@@ -20,26 +19,29 @@ function SalespeopleList() {
   }, []);
 
   return (
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th>Employee ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        {salespeople.map((salesperson, i) => {
-          return (
-            <tr key={i}>
-              <td>{salesperson.employee_id}</td>
-              <td>{salesperson.first_name}</td>
-              <td>{salesperson.last_name}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <>
+      <h1>Salespeople</h1>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Employee ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {salespeople.map((salesperson, i) => {
+            return (
+              <tr key={i}>
+                <td>{salesperson.employee_id}</td>
+                <td>{salesperson.first_name}</td>
+                <td>{salesperson.last_name}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </>
   );
 }
 

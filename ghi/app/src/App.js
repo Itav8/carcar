@@ -4,6 +4,8 @@ import Nav from "./Nav";
 import TechnicianForm from "./TechnicianForm";
 import SalespersonForm from "./SalespersonForm";
 import SalespeopleList from "./SalespeopleList";
+import CustomerForm from "./CustomerForm";
+import CustomerList from "./CustomerList";
 
 function App() {
   return (
@@ -18,6 +20,10 @@ function App() {
           <Route path="/salespeople">
             <Route index element={<SalespeopleList />} />
             <Route path="create" element={<SalespersonForm />} />
+          </Route>
+          <Route path="/customer">
+            <Route index element={<CustomerList />} />
+            <Route path="create" element={<CustomerForm />} />
           </Route>
         </Routes>
       </div>
