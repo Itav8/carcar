@@ -3,6 +3,7 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import TechnicianForm from './TechnicianForm';
 import TechnicianList from './TechnicianList';
+import ServiceForm from './ServiceForm';
 
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
           <Route path="/technicians" element={<TechnicianList />} />
           <Route path="/technicians">
             <Route path="new" element={<TechnicianForm />} />
+          </Route>
+          <Route path="/services">
+            <Route path="new" element={<ServiceForm />} />
           </Route>
         </Routes>
       </div>
