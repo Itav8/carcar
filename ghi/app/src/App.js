@@ -17,8 +17,6 @@ import VehicleModeForm from "./VehicleModelForm";
 import VehicleModelList from "./VehicleModelList";
 import ManufacturerForm from "./ManufacturerForm";
 import ManufacturerList from "./ManufacturerList";
-import AutomobileList from "./AutomobileList";
-import AutomobileForm from "./AutomobileForm";
 
 function App() {
   return (
@@ -58,10 +56,6 @@ function App() {
           <Route path="/models">
             <Route index element={<VehicleModelList />} />
             <Route path="create" element={<VehicleModeForm />} />
-          </Route>
-          <Route path="/automobiles">
-            <Route index element={<AutomobileList />} />
-            <Route path="create" element={<AutomobileForm />} />
           </Route>
         </Routes>
       </div>

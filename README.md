@@ -48,11 +48,11 @@ Models:
     AutomobileVO
         - Contains all the Automobile VINs polled from Inventory microservice.
     Salesperson
-        - Contains the nesscary infomation for a salesperson and setting the employee_id uniquie to True to prevent any duplication.
+        - Contains the necessary infomation for a salesperson and setting the `employee_id` unique to True to prevent any duplication.
     Customer
-        - Contains the nesscary infomation for a customer.
+        - Contains the necessary infomation for a customer.
     Sale
-        - Contains the nesscary infomation for a sale. Automobile is a ForeignKey to AutomobileVO. Salesperson is a ForeignKey to Salesperson Model. Customer is a ForeignKey to Customer Model.
+        - Contains the necessary infomation for a sale. Automobile is a ForeignKey to AutomobileVO. Salesperson is a ForeignKey to Salesperson Model. Customer is a ForeignKey to Customer Model.
 
 Poller Microservice:
     Inventory
