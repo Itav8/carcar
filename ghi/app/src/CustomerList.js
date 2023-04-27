@@ -34,23 +34,25 @@ function CustomerList() {
   return (
     <>
       <h1>Customers</h1>
-      <table className="table table-striped">
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Phone Number</th>
             <th>Address</th>
+            <th>Delete?</th>
           </tr>
         </thead>
         <tbody>
           {customers.map((customer, i) => {
             return (
               <tr key={i}>
-                <td>{customer.first_name}</td>
-                <td>{customer.last_name}</td>
-                <td>{customer.phone_number}</td>
-                <td>{customer.address}</td>
+                <td className="align-middle">{customer.first_name}</td>
+                <td className="align-middle">{customer.last_name}</td>
+                <td className="align-middle">{customer.phone_number}</td>
+                <td className="align-middle">{customer.address}</td>
                 <td>
                   <button className="btn btn-outline-dark" onClick={() => handleDelete(customer.id)}>Delete</button>
                 </td>
@@ -59,6 +61,7 @@ function CustomerList() {
           })}
         </tbody>
       </table>
+      </div>
     </>
   );
 }

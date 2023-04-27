@@ -47,6 +47,17 @@ function SalespersonHistory() {
     }
   };
 
+
+  // Create our number formatter.
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+  });
+
   return (
     <>
       <h1>Salesperson History</h1>
@@ -67,7 +78,7 @@ function SalespersonHistory() {
           })}
         </select>
       </div>
-      <table className="table table-striped">
+      <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>Salesperson Name</th>
@@ -86,7 +97,7 @@ function SalespersonHistory() {
                 <td>{customerName}</td>
                 <td>{salespersonSale.automobile.vin}</td>
                 {/* update price setup */}
-                <td>${salespersonSale.price}</td>
+                <td>{ formatter.format(salespersonSale.price) }</td>
               </tr>
             );
           })}

@@ -35,12 +35,13 @@ function VehicleModelList() {
   return (
     <>
       <h1>Models</h1>
-      <table className="table table-striped">
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>Name</th>
             <th>Manufacturer</th>
-            <th>Picture</th>
+            <th className="text-center">Picture</th>
           </tr>
         </thead>
         <tbody>
@@ -48,9 +49,9 @@ function VehicleModelList() {
             const manufacturer = model.manufacturer.name;
             return (
               <tr key={i}>
-                <td>{model.name}</td>
-                <td>{manufacturer}</td>
-                <td>
+                <td className="align-middle">{model.name}</td>
+                <td className="align-middle">{manufacturer}</td>
+                <td className="align-middle text-center">
                   <img
                     style={{width: "320px", height:"170px"}}
                     src={
@@ -68,6 +69,7 @@ function VehicleModelList() {
           })}
         </tbody>
       </table>
+      </div>
     </>
   );
 }

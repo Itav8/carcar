@@ -47,7 +47,8 @@ function SalesList() {
   return (
     <>
       <h1>Sales</h1>
-      <table className="table table-striped">
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>Salesperson Employee ID</th>
@@ -55,6 +56,7 @@ function SalesList() {
             <th>Customer</th>
             <th>VIN</th>
             <th>Price</th>
+            <th>Delete?</th>
           </tr>
         </thead>
         <tbody>
@@ -77,6 +79,7 @@ function SalesList() {
           })}
         </tbody>
       </table>
+      </div>
     </>
   );
 }

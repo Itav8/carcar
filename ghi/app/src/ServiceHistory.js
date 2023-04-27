@@ -8,7 +8,6 @@ const ServiceHistory = () => {
     const [vins, setVins] = useState([]);
     const [search, setSearch] = useState('');
     const [searchTrigger, setSearchTrigger] = useState('');
-    // const [isVIP, setIsVIP] = useState([]);
 
     const apiRequest = async (url = '', optionsObj = null, errMsg = null) => {
         try {
@@ -53,61 +52,61 @@ const ServiceHistory = () => {
 
     const handleSearchSubmit = (event) => {
         event.preventDefault();
-        // console.log("searched", event.target.value, search);
-        // const value = event.target.value;
         setSearchTrigger(search);
     }
 
 
     return (
+        <>
+          <h1>Service History</h1>
         <div>
 
-    <div className="row">
-    <div className="offset-3 col-6">
-    <div className="shadow p-4 mt-4">
+
+      <div className="mb-3">
     <form className='searchForm' onSubmit={handleSearchSubmit}>
+            <div id="nameAlert" className="form-floating mb-3">
         <input
         onChange={e => setSearch(e.target.value)}
         type="text"
         role="searchbox"
-        placeholder='Search by VIN...'
+        id="vin"
+        name="vin"
         value={search}
+        placeholder="Enter a VIN"
         />
-        <button type="submit">Search</button>
+        <button className="btn btn-outline-dark m-1" type="submit">Search</button>
+        </div>
     </form>
-
-    </div>
-    </div>
     </div>
     <div className="table-responsive">
         <table className='table table-striped table-bordered table-hover'>
             <thead>
                 <tr>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>VIN</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Is VIP?</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Customer</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Date</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Time</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Technician</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Reason</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Status</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>VIN</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Is VIP?</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Customer</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Date</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Time</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Technician</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Reason</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Status</th>
                 </tr>
             </thead>
             <tbody>
                 {appointments.map(appointment => {
                     return ( appointment.vin.includes(searchTrigger) &&
                         <tr key={appointment.id}>
-                            <td className="align-middle fw-bold px-3" style={{fontSize: '1.2rem'}}>{ appointment.vin }</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>
+                            <td className="align-middle fw-bold px-3" style={{fontSize: '1rem'}}>{ appointment.vin }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>
                                 { (vins.indexOf(appointment.vin) > -1) && `YES` }
                                 { !(vins.indexOf(appointment.vin) > -1) && `NO` }
                                 </td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ appointment.customer }</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{new Date(appointment.date_time).toLocaleDateString()}</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{new Date(appointment.date_time).toLocaleTimeString()}</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ appointment.technician }</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ appointment.reason }</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ appointment.status }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.customer }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleDateString()}</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.technician }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.reason }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.status }</td>
                         </tr>
                     )
                 })}
@@ -115,7 +114,8 @@ const ServiceHistory = () => {
         </table>
     </div>
     </div>
-    )
+    </>
+    );
 }
 
 export default ServiceHistory

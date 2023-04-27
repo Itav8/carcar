@@ -40,7 +40,8 @@ function AutomobileList() {
   return (
     <>
       <h1>Automobiles</h1>
-      <table className="table table-striped">
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>VIN</th>
@@ -48,7 +49,8 @@ function AutomobileList() {
             <th>Year</th>
             <th>Model</th>
             <th>Manufacturer</th>
-            <th>Sold</th>
+            <th>Sold?</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -72,6 +74,7 @@ function AutomobileList() {
           })}
         </tbody>
       </table>
+      </div>
     </>
   );
 }

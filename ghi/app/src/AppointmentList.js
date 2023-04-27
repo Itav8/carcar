@@ -102,7 +102,7 @@ const AppointmentList = () => {
                                 </td>
                             <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.customer }</td>
                             <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleDateString()}</td>
-                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleTimeString()}</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                             <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.technician }</td>
                             <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.reason }</td>
                             <td className="align-middle px-3 text-center">

@@ -48,9 +48,9 @@ const TechnicianList = () => {
         <table className='table table-striped table-bordered table-hover'>
             <thead>
                 <tr>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Employee ID</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>First Name</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Last Name</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Employee ID</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>First Name</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Last Name</th>
                     <th className="align-middle text-center">Delete?</th>
                 </tr>
             </thead>
@@ -58,9 +58,9 @@ const TechnicianList = () => {
                 {technicians.map(technician => {
                     return (
                         <tr key={technician.employee_id}>
-                            <td className="align-middle fw-bold px-3" style={{fontSize: '1.2rem'}}>{ technician.employee_id }</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ technician.first_name }</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ technician.last_name }</td>
+                            <td className="align-middle fw-bold px-3" style={{fontSize: '1rem'}}>{ technician.employee_id }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ technician.first_name }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ technician.last_name }</td>
                             <td className="align-middle px-3 text-center">
                                 <button className="btn btn-outline-dark" role="button" onClick={() => handleDelete(technician.employee_id)}>
                                     Delete
