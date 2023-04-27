@@ -30,6 +30,7 @@ function SalespeopleList() {
         setSalespeople(data.salespeople);
       }
     };
+    
     fetchSalespeople();
   }, []);
 

@@ -15,10 +15,6 @@ function SalespersonHistory() {
       }
     };
 
-    fetchSalespersonData();
-  }, []);
-
-  useEffect(() => {
     const fetchSalespersonSalesData = async () => {
       const salesList = await fetch("http://localhost:8090/api/sales/");
 
@@ -29,11 +25,12 @@ function SalespersonHistory() {
     };
 
     fetchSalespersonSalesData();
+    fetchSalespersonData();
   }, []);
 
   const handleSelectPerson = async (e) => {
     const employeeId = e.target.value;
-    
+
     if (employeeId) {
       const url = `http://localhost:8090/api/sales/`;
       const response = await fetch(url);

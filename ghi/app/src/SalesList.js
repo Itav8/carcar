@@ -20,17 +20,17 @@ function SalesList() {
   };
 
   useEffect(() => {
+    const fetchSales = async () => {
+      const salesList = await fetch("http://localhost:8090/api/sales/");
+
+      if (salesList.ok) {
+        const data = await salesList.json();
+        setSales(data.sales);
+      }
+    };
+
     fetchSales();
   }, []);
-
-  const fetchSales = async () => {
-    const salesList = await fetch("http://localhost:8090/api/sales/");
-
-    if (salesList.ok) {
-      const data = await salesList.json();
-      setSales(data.sales);
-    }
-  };
 
   return (
     <>

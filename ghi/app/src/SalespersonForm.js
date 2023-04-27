@@ -35,6 +35,7 @@ function SalespersonForm() {
         employeeId: "",
       });
     }
+    
     return navigate("/salespeople")
   };
 
