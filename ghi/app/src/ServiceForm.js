@@ -10,7 +10,6 @@ const ServiceForm = () => {
     const [time, setTime] = useState('');
     const [technician, setTechnician] = useState('');
     const [reason, setReason] = useState('');
-    // const [locationID, setLocationID] = useState('');
 
     const handleVinChange = (event) => {
         const value = event.target.value;
@@ -36,10 +35,6 @@ const ServiceForm = () => {
         const value = event.target.value;
         setReason(value);
     }
-    // const handleLocationIDChange = (event) => {
-    //     const value = event.target.value;
-    //     setLocationID(value);
-    // }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -50,10 +45,8 @@ const ServiceForm = () => {
         data.vin = vin;
         data.customer = customer;
         data.date_time = `${date}T${time}`;
-        // data.time = time;
         data.technician = technician;
         data.reason = reason;
-        // data.location = locationID;
 
         console.log(data);
 
@@ -77,9 +70,21 @@ const ServiceForm = () => {
             setTime('');
             setTechnician('');
             setReason('');
-            // setLocationID('');
+
+            navigate("/services");
+        } else {
+            const formAlert = document.getElementById("reasonAlert");
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-danger alert-dismissible" role="alert">`,
+                `   <div>Problem with form, please try again.</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            formAlert.append(wrapper);
+
         }
-        navigate("/services");
     }
 
     const fetchData = async () => {
@@ -136,7 +141,7 @@ const ServiceForm = () => {
                 })}
                 </select>
                 </div>
-                <div className="form-floating mb-3">
+                <div id="reasonAlert" className="form-floating mb-3">
                 <input value={reason} onChange={handleReasonChange} placeholder="Reason" required name="reason" type="text" id="reason" className="form-control" />
                 <label htmlFor="reason">Reason</label>
                 </div>

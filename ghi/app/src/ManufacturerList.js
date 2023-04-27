@@ -58,7 +58,7 @@ const ManufacturerList = () => {
                         <tr key={manufacturer.id}>
                             <td className="align-middle fw-bold px-3" style={{fontSize: '1.2rem'}}>{ manufacturer.name }</td>
                             <td className="align-middle px-3 text-center">
-                                <button className="btn btn-danger" role="button" onClick={() => handleDelete(manufacturer.id)}>
+                                <button className="btn btn-outline-dark" role="button" onClick={() => handleDelete(manufacturer.id)}>
                                     Delete
                                 </button>
                             </td>

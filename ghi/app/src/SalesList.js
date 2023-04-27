@@ -32,6 +32,18 @@ function SalesList() {
     fetchSales();
   }, []);
 
+
+  // Create our number formatter.
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+  });
+
+
   return (
     <>
       <h1>Sales</h1>
@@ -56,7 +68,7 @@ function SalesList() {
                 <td>{customerName}</td>
                 <td>{sale.automobile.vin}</td>
                 {/* update price setup */}
-                <td>${sale.price}</td>
+                <td>{ formatter.format(sale.price) }</td>
                 <td>
                   <button onClick={() => handleDelete(sale.id)}>Delete</button>
                 </td>

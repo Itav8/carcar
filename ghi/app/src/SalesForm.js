@@ -76,9 +76,21 @@ function SalesForm() {
         customer: "",
         price: "",
       });
-    }
-    
-    return navigate("/sales");
+      return navigate("/sales");
+    } else {
+      const formAlert = document.getElementById("priceAlert");
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+          `<div class="alert alert-danger alert-dismissible" role="alert">`,
+          `   <div>Problem with form, try again.</div>`,
+          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+          '</div>'
+      ].join('')
+
+      formAlert.append(wrapper);
+
+  }
+
   };
 
   const handleFormChange = (e) => {
@@ -151,7 +163,7 @@ function SalesForm() {
                 })}
               </select>
             </div>
-            <div className="form-floating mb-3">
+            <div id="priceAlert" className="form-floating mb-3">
               <input
                 onChange={handleFormChange}
                 placeholder="price"
@@ -160,7 +172,7 @@ function SalesForm() {
                 name="price"
                 className="form-control"
               />
-              <label htmlFor="price">0</label>
+              <label htmlFor="price">Price</label>
             </div>
             <button className="btn btn-primary">Create</button>
           </form>

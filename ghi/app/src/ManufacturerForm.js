@@ -32,6 +32,7 @@ const ManufacturerForm = () => {
             console.log(newManufacturer);         // DELETE THIS CODE LATER??
 
             setName('');
+
             navigate("/manufacturers");
         } else {
             const formAlert = document.getElementById("nameAlert");
