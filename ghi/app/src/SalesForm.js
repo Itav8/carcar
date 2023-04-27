@@ -20,7 +20,6 @@ function SalesForm() {
 
       if (response.ok) {
         const vinData = await response.json();
-        console.log(vinData.autos);
         const filteredVins = vinData.autos.filter((auto) => !auto.sold);
         setVins(filteredVins);
       }
