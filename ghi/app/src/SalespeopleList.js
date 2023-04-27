@@ -30,7 +30,7 @@ function SalespeopleList() {
         setSalespeople(data.salespeople);
       }
     };
-    
+
     fetchSalespeople();
   }, []);
 
@@ -53,7 +53,7 @@ function SalespeopleList() {
                 <td>{salesperson.first_name}</td>
                 <td>{salesperson.last_name}</td>
                 <td>
-                  <button onClick={() => handleDelete(salesperson.employee_id)}>
+                  <button className="btn btn-outline-dark" onClick={() => handleDelete(salesperson.employee_id)}>
                     Delete
                   </button>
                 </td>

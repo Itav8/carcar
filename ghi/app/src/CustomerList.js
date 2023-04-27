@@ -52,7 +52,7 @@ function CustomerList() {
                 <td>{customer.phone_number}</td>
                 <td>{customer.address}</td>
                 <td>
-                  <button onClick={() => handleDelete(customer.id)}>Delete</button>
+                  <button className="btn btn-outline-dark" onClick={() => handleDelete(customer.id)}>Delete</button>
                 </td>
               </tr>
             );

@@ -62,7 +62,7 @@ const TechnicianList = () => {
                             <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ technician.first_name }</td>
                             <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ technician.last_name }</td>
                             <td className="align-middle px-3 text-center">
-                                <button className="btn btn-danger" role="button" onClick={() => handleDelete(technician.employee_id)}>
+                                <button className="btn btn-outline-dark" role="button" onClick={() => handleDelete(technician.employee_id)}>
                                     Delete
                                 </button>
                             </td>

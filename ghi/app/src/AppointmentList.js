@@ -104,10 +104,10 @@ const AppointmentList = () => {
                             <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ appointment.technician }</td>
                             <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ appointment.reason }</td>
                             <td className="align-middle px-3 text-center">
-                                <button className="btn btn-danger" role="button" onClick={() => handleCancel(appointment.id)}>
+                                <button className="btn btn-outline-danger" role="button" onClick={() => handleCancel(appointment.id)}>
                                     Cancel
                                 </button>
-                                <button className="btn btn-success" role="button" onClick={() => handleFinish(appointment.id)}>
+                                <button className="btn btn-outline-success" role="button" onClick={() => handleFinish(appointment.id)}>
                                     Finish
                                 </button>
                             </td>

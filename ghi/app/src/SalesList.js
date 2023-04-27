@@ -70,7 +70,7 @@ function SalesList() {
                 {/* update price setup */}
                 <td>{ formatter.format(sale.price) }</td>
                 <td>
-                  <button onClick={() => handleDelete(sale.id)}>Delete</button>
+                  <button className="btn btn-outline-dark" onClick={() => handleDelete(sale.id)}>Delete</button>
                 </td>
               </tr>
             );

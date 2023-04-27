@@ -65,7 +65,7 @@ function AutomobileList() {
                 <td>{automobile.model.sold}</td>
                 {/* add a edit button */}
                 <td>
-                  <button onClick={() => handleDelete(automobile.vin)}>Delete</button>
+                  <button className="btn btn-outline-dark" onClick={() => handleDelete(automobile.vin)}>Delete</button>
                 </td>
               </tr>
             );
