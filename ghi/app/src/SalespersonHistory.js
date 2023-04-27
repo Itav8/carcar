@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+// add to prevent data being deleted for history when user delete a sale from SalesList
 function SalespersonHistory() {
   const [salespeople, setSalespeople] = useState([]);
   const [salespersonSales, setSalespersonSales] = useState([]);
@@ -15,10 +15,6 @@ function SalespersonHistory() {
       }
     };
 
-    fetchSalespersonData();
-  }, []);
-
-  useEffect(() => {
     const fetchSalespersonSalesData = async () => {
       const salesList = await fetch("http://localhost:8090/api/sales/");
 
@@ -29,11 +25,12 @@ function SalespersonHistory() {
     };
 
     fetchSalespersonSalesData();
+    fetchSalespersonData();
   }, []);
 
   const handleSelectPerson = async (e) => {
     const employeeId = e.target.value;
-    
+
     if (employeeId) {
       const url = `http://localhost:8090/api/sales/`;
       const response = await fetch(url);
@@ -88,6 +85,7 @@ function SalespersonHistory() {
                 <td>{salespersonName}</td>
                 <td>{customerName}</td>
                 <td>{salespersonSale.automobile.vin}</td>
+                {/* update price setup */}
                 <td>${salespersonSale.price}</td>
               </tr>
             );

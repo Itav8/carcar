@@ -14,40 +14,40 @@ function SalesForm() {
   });
 
   useEffect(() => {
+    const fetchVinData = async () => {
+      const url = "http://localhost:8100/api/automobiles/";
+      const response = await fetch(url);
+
+      if (response.ok) {
+        const vinData = await response.json();
+        setVins(vinData.autos);
+      }
+    };
+
+    const fetchSalespersonData = async () => {
+      const url = "http://localhost:8090/api/salespeople/";
+      const response = await fetch(url);
+
+      if (response.ok) {
+        const salespersonData = await response.json();
+        setSalespeople(salespersonData.salespeople);
+      }
+    };
+
+    const fetchCustomerData = async () => {
+      const url = "http://localhost:8090/api/customers/";
+      const response = await fetch(url);
+
+      if (response.ok) {
+        const customerData = await response.json();
+        setCustomers(customerData.customers);
+      }
+    };
+
     fetchVinData();
     fetchSalespersonData();
     fetchCustomerData();
   }, []);
-
-  const fetchVinData = async () => {
-    const url = "http://localhost:8100/api/automobiles/";
-    const response = await fetch(url);
-
-    if (response.ok) {
-      const vinData = await response.json();
-      setVins(vinData.autos);
-    }
-  };
-
-  const fetchSalespersonData = async () => {
-    const url = "http://localhost:8090/api/salespeople/";
-    const response = await fetch(url);
-
-    if (response.ok) {
-      const salespersonData = await response.json();
-      setSalespeople(salespersonData.salespeople);
-    }
-  };
-
-  const fetchCustomerData = async () => {
-    const url = "http://localhost:8090/api/customers/";
-    const response = await fetch(url);
-
-    if (response.ok) {
-      const customerData = await response.json();
-      setCustomers(customerData.customers);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,6 +77,7 @@ function SalesForm() {
         price: "",
       });
     }
+    
     return navigate("/sales");
   };
 

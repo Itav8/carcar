@@ -44,3 +44,16 @@ I have 3 Models:
 
 Explain your models and integration with the inventory
 microservice, here.
+Models:
+    AutomobileVO
+        - Contains all the Automobile VINs polled from Inventory microservice
+    Salesperson
+        -
+    Customer
+        -
+    Sale
+        -
+
+Poller Microservice:
+    Inventory
+        - Automobile Model: It polls this data every minute to add Automobile VIN to the Sales Microservice database for AutomobileVO

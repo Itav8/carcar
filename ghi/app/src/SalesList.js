@@ -3,18 +3,34 @@ import React, { useEffect, useState } from "react";
 function SalesList() {
   const [sales, setSales] = useState([]);
 
-  useEffect(() => {
-    fetchSales();
-  }, []);
+  const handleDelete = async (salesId) => {
+    const url = `http://localhost:8090/api/sales/${salesId}/`;
 
-  const fetchSales = async () => {
-    const salesList = await fetch("http://localhost:8090/api/sales/");
+    const fetchConfig = {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-    if (salesList.ok) {
-      const data = await salesList.json();
-      setSales(data.sales);
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      setSales(sales.filter((sale) => sale.id !== salesId));
     }
   };
+
+  useEffect(() => {
+    const fetchSales = async () => {
+      const salesList = await fetch("http://localhost:8090/api/sales/");
+
+      if (salesList.ok) {
+        const data = await salesList.json();
+        setSales(data.sales);
+      }
+    };
+
+    fetchSales();
+  }, []);
 
   return (
     <>
@@ -39,7 +55,11 @@ function SalesList() {
                 <td>{salespersonName}</td>
                 <td>{customerName}</td>
                 <td>{sale.automobile.vin}</td>
+                {/* update price setup */}
                 <td>${sale.price}</td>
+                <td>
+                  <button onClick={() => handleDelete(sale.id)}>Delete</button>
+                </td>
               </tr>
             );
           })}

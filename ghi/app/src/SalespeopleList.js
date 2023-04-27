@@ -3,6 +3,22 @@ import React, { useEffect, useState } from "react";
 function SalespeopleList() {
   const [salespeople, setSalespeople] = useState([]);
 
+  const handleDelete = async (employeeId) => {
+    const url = `http://localhost:8090/api/salespeople/${employeeId}/`;
+
+    const fetchConfig = {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      setSalespeople(salespeople.filter((salesperson) => salesperson.employee_id !== employeeId));
+    }
+  };
+
   useEffect(() => {
     const fetchSalespeople = async () => {
       const salespeopleList = await fetch(
@@ -14,6 +30,7 @@ function SalespeopleList() {
         setSalespeople(data.salespeople);
       }
     };
+    
     fetchSalespeople();
   }, []);
 
@@ -35,6 +52,11 @@ function SalespeopleList() {
                 <td>{salesperson.employee_id}</td>
                 <td>{salesperson.first_name}</td>
                 <td>{salesperson.last_name}</td>
+                <td>
+                  <button onClick={() => handleDelete(salesperson.employee_id)}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             );
           })}

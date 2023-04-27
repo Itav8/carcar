@@ -30,7 +30,6 @@ function CustomerForm() {
     };
 
     const response = await fetch(url, fetchConfig);
-
     if (response.ok) {
       setFormData({
         firstName: "",

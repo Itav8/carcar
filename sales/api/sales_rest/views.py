@@ -6,15 +6,14 @@ from .models import AutomobileVO, Customer, Sale, Salesperson
 from decimal import Decimal
 
 
-# Create your views here.
-@require_http_methods(["GET", "POST", "DELETE"])
-def list_salespeople(request, employee_id=None):
+@require_http_methods(["GET", "POST"])
+def list_salespeople(request):
     if request.method == "GET":
         salespeople = Salesperson.objects.all()
         return JsonResponse(
             {"salespeople": salespeople}, encoder=SalespersonEncoder, safe=False
         )
-    elif request.method == "POST":
+    else:
         try:
             content = json.loads(request.body)
         except Salesperson.DoesNotExist:
@@ -22,7 +21,11 @@ def list_salespeople(request, employee_id=None):
 
         salesperson = Salesperson.objects.create(**content)
         return JsonResponse(salesperson, encoder=SalespersonEncoder, safe=False)
-    else:
+
+
+@require_http_methods(["DELETE"])
+def delete_salesperson(request, employee_id):
+    if request.method == "DELETE":
         count, _ = Salesperson.objects.filter(employee_id=employee_id).delete()
         if count > 0:
             return JsonResponse({"deleted": count > 0}, status=200)
@@ -30,14 +33,14 @@ def list_salespeople(request, employee_id=None):
             return JsonResponse({"deleted": count > 0}, status=404)
 
 
-@require_http_methods(["GET", "POST", "DELETE"])
-def list_customer(request, pk=None):
+@require_http_methods(["GET", "POST"])
+def list_customer(request):
     if request.method == "GET":
         customers = Customer.objects.all()
         return JsonResponse(
             {"customers": customers}, encoder=CustomerEncoder, safe=False
         )
-    elif request.method == "POST":
+    else:
         try:
             content = json.loads(request.body)
         except Customer.DoesNotExist:
@@ -45,20 +48,24 @@ def list_customer(request, pk=None):
 
         customer = Customer.objects.create(**content)
         return JsonResponse(customer, encoder=CustomerEncoder, safe=False)
-    else:
-        count, _ = Customer.objects.filter(pk=pk).delete()
+
+
+@require_http_methods(["DELETE"])
+def delete_customer(request, id):
+    if request.method == "DELETE":
+        count, _ = Customer.objects.filter(id=id).delete()
         if count > 0:
             return JsonResponse({"deleted": count > 0}, status=200)
         else:
             return JsonResponse({"deleted": count > 0}, status=404)
 
 
-@require_http_methods(["GET", "POST", "DELETE"])
-def list_sales(request, pk=None):
+@require_http_methods(["GET", "POST"])
+def list_sales(request):
     if request.method == "GET":
         sales = Sale.objects.all()
         return JsonResponse({"sales": sales}, encoder=SaleEncoder)
-    elif request.method == "POST":
+    else:
         try:
             content = json.loads(request.body)
             automobile = AutomobileVO.objects.get(vin=content["automobile"])
@@ -81,8 +88,12 @@ def list_sales(request, pk=None):
 
         sale = Sale.objects.create(**sale_data)
         return JsonResponse(sale, encoder=SaleEncoder, safe=False)
-    else:
-        count, _ = Sale.objects.filter(pk=pk).delete()
+
+
+@require_http_methods(["DELETE"])
+def delete_sales(request, id):
+    if request.method == "DELETE":
+        count, _ = Sale.objects.filter(id=id).delete()
         if count > 0:
             return JsonResponse({"deleted": count > 0}, status=200)
         else:
