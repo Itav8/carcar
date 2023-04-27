@@ -29,7 +29,17 @@ const AppointmentList = () => {
         if (result) {
             console.log(result);
         } else {
-            console.log(`else! ${result}`)
+            const formAlert = document.getElementById("tableAlert");
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-danger alert-dismissible" role="alert">`,
+                `   <div>Could not cancel!</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            formAlert.append(wrapper);
+
         }
     }
     const handleFinish = async (id) => {
@@ -42,7 +52,17 @@ const AppointmentList = () => {
         if (result) {
             console.log(result);
         } else {
-            console.log(`else! ${result}`)
+            const formAlert = document.getElementById("tableAlert");
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-danger alert-dismissible" role="alert">`,
+                `   <div>Could not finish!</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            formAlert.append(wrapper);
+
         }
     }
 
@@ -77,7 +97,7 @@ const AppointmentList = () => {
     return (
     <div className="table-responsive">
         <table className='table table-striped table-bordered table-hover'>
-            <thead>
+            <thead className="tableAlert">
                 <tr>
                     <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>VIN</th>
                     <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Is VIP?</th>
