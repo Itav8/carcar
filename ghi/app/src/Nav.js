@@ -37,13 +37,29 @@ function Nav() {
                 List Manufacturers
               </NavLink>
             </li>
-            <li className="nav-item col">
-              <NavLink className="nav-link" to="/automobiles/new">
-                Create Automobile
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/models/create">
+                Create a Model
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/models">
+                Models
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/automobiles/create">
+                Create an Automobile
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/automobiles">
+                Automobiles
               </NavLink>
             </li>
           </ul>
-        </li>
+            </li>
+
 
           <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -116,26 +132,6 @@ function Nav() {
             <li className="nav-item col">
               <NavLink className="nav-link" to="/services/history">
                 Service History
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/models">
-                Models
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/models/create">
-                Create a Model
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/automobiles">
-                Automobiles
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/automobiles/create">
-                Create an Automobile
               </NavLink>
             </li>
           </ul>
