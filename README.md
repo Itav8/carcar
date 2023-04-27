@@ -46,14 +46,14 @@ Explain your models and integration with the inventory
 microservice, here.
 Models:
     AutomobileVO
-        - Contains all the Automobile VINs polled from Inventory microservice
+        - Contains all the Automobile VINs polled from Inventory microservice.
     Salesperson
-        -
+        - Contains the nesscary infomation for a salesperson and setting the employee_id uniquie to True to prevent any duplication.
     Customer
-        -
+        - Contains the nesscary infomation for a customer.
     Sale
-        -
+        - Contains the nesscary infomation for a sale. Automobile is a ForeignKey to AutomobileVO. Salesperson is a ForeignKey to Salesperson Model. Customer is a ForeignKey to Customer Model.
 
 Poller Microservice:
     Inventory
-        - Automobile Model: It polls this data every minute to add Automobile VIN to the Sales Microservice database for AutomobileVO
+        - Automobile Model: It polls this data every minute to add Automobile VIN to the Sales Microservice database for AutomobileVO.

@@ -77,7 +77,7 @@ function SalesForm() {
         price: "",
       });
     }
-    
+
     return navigate("/sales");
   };
 
