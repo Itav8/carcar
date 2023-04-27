@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// add to prevent data being deleted for history when user delete a sale from SalesList
+
 function SalespersonHistory() {
   const [salespeople, setSalespeople] = useState([]);
   const [salespersonSales, setSalespersonSales] = useState([]);
@@ -27,6 +27,11 @@ function SalespersonHistory() {
     fetchSalespersonSalesData();
     fetchSalespersonData();
   }, []);
+
+  const priceFormatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
 
   const handleSelectPerson = async (e) => {
     const employeeId = e.target.value;
@@ -85,8 +90,7 @@ function SalespersonHistory() {
                 <td>{salespersonName}</td>
                 <td>{customerName}</td>
                 <td>{salespersonSale.automobile.vin}</td>
-                {/* update price setup */}
-                <td>${salespersonSale.price}</td>
+                <td>{priceFormatter.format(salespersonSale.price)}</td>
               </tr>
             );
           })}

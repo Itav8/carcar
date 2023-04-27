@@ -53,7 +53,7 @@ function AutomobileList() {
         <tbody>
           {automobiles.map((automobile, i) => {
             let isSold = ''
-            if (automobile.model.sold) {
+            if (automobile.sold) {
               isSold = "Yes"
             } else {
               isSold = "No"
@@ -66,7 +66,6 @@ function AutomobileList() {
                 <td>{automobile.model.name}</td>
                 <td>{automobile.model.manufacturer.name}</td>
                 <td>{isSold}</td>
-                {/* add a edit button */}
                 <td>
                   <button onClick={() => handleDelete(automobile.vin)}>Delete</button>
                 </td>
