@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+// add a detail feature when you name (id)
 function VehicleModelList() {
   const [models, setModels] = useState([]);
 
@@ -25,11 +25,10 @@ function VehicleModelList() {
 
       if (modelList.ok) {
         const data = await modelList.json();
-        console.log(data.models);
         setModels(data.models);
       }
     };
-    
+
     fetchModels();
   }, []);
 
@@ -60,6 +59,7 @@ function VehicleModelList() {
                     }
                   />
                 </td>
+                {/* add a edit button */}
                 <td>
                   <button onClick={() => handleDelete(model.id)}>Delete</button>
                 </td>

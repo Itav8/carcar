@@ -55,6 +55,7 @@ function SalesList() {
                 <td>{salespersonName}</td>
                 <td>{customerName}</td>
                 <td>{sale.automobile.vin}</td>
+                {/* update price setup */}
                 <td>${sale.price}</td>
                 <td>
                   <button onClick={() => handleDelete(sale.id)}>Delete</button>
