@@ -1,5 +1,5 @@
 import json
-from service_rest.models import Technician, Appointment, AutomobileVO
+from service_rest.models import Technician, Appointment, AutomobileVO, Status
 from django.test import TransactionTestCase, Client
 
 class Tests(TransactionTestCase):
@@ -31,7 +31,7 @@ class Tests(TransactionTestCase):
         Technician.objects.create(first_name="first", last_name="last", employee_id=1)
 
         client = Client()
-        response = client.delete("/api/technicians/1")
+        response = client.delete("/api/technicians/1/")
         self.assertEqual(response.status_code, 200, msg="Did not get a 200 OK for technicians delete.")
 
         response = client.delete("/api/technicians/1/")
@@ -40,6 +40,7 @@ class Tests(TransactionTestCase):
     ####APPOINTMENT ENDPOINTS
     def test_appointment_list(self):
         tech = Technician.objects.create(first_name="first", last_name="last", employee_id=1)
+
         appointment = Appointment.objects.create(date_time="2023-04-20T14:39:00.000Z", reason="reason code 1", vin="2222", customer="Warren Longmire", technician=tech)
 
         client = Client()
@@ -52,6 +53,9 @@ class Tests(TransactionTestCase):
 
     def test_appointment_create(self):
         tech = Technician.objects.create(first_name="first", last_name="last", employee_id=1)
+        # Status.objects.create(name="created")
+        # Status.objects.create(name="canceled")
+        # Status.objects.create(name="finished")
 
         client = Client()
         body = {
@@ -74,7 +78,7 @@ class Tests(TransactionTestCase):
         appointment = Appointment.objects.create(date_time="2023-04-20T14:39:00.000Z", reason="reason code 1", vin="2222", customer="Warren Longmire", technician=tech)
 
         client = Client()
-        response = client.delete(f"/api/appointments/{appointment.id}")
+        response = client.delete(f"/api/appointments/{appointment.id}/")
         self.assertEqual(response.status_code, 200, msg="Did not get a 200 OK for appointment delete.")
 
         response = client.delete(f"/api/appointments/{appointment.id}")
@@ -82,6 +86,9 @@ class Tests(TransactionTestCase):
 
     def test_appointment_cancel(self):
         tech = Technician.objects.create(first_name="first", last_name="last", employee_id=1)
+        # Status.objects.create(name="created")
+        # Status.objects.create(name="canceled")
+        # Status.objects.create(name="finished")
         appointment = Appointment.objects.create(date_time="2023-04-20T14:39:00.000Z", reason="reason code 1", vin="2222", customer="Warren Longmire", technician=tech)
 
         client = Client()
