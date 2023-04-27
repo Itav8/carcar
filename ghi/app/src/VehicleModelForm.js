@@ -49,9 +49,21 @@ function VehicleModelForm() {
         pictureUrl: "",
         manufacturer: "",
       });
-    }
+      return navigate("/models");
+    } else {
+      const formAlert = document.getElementById("urlAlert");
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+          `<div class="alert alert-danger alert-dismissible" role="alert">`,
+          `   <div>Problem with form (note that URL must be < 200 characters)</div>`,
+          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+          '</div>'
+      ].join('')
 
-    return navigate("/models");
+      formAlert.append(wrapper);
+
+  }
+
   };
 
   const handleFormChange = (e) => {
@@ -81,7 +93,7 @@ function VehicleModelForm() {
               />
               <label htmlFor="modelName">Model name...</label>
             </div>
-            <div className="form-floating mb-3">
+            <div id="urlAlert" className="form-floating mb-3">
               <input
                 onChange={handleFormChange}
                 placeholder="Picture URL"

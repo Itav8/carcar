@@ -37,10 +37,12 @@ function SalesList() {
     fetchSales();
   }, []);
 
+
   return (
     <>
       <h1>Sales</h1>
-      <table className="table table-striped">
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>Salesperson Employee ID</th>
@@ -48,6 +50,7 @@ function SalesList() {
             <th>Customer</th>
             <th>VIN</th>
             <th>Price</th>
+            <th>Delete?</th>
           </tr>
         </thead>
         <tbody>
@@ -62,13 +65,14 @@ function SalesList() {
                 <td>{sale.automobile.vin}</td>
                 <td>{priceFormatter.format(sale.price)}</td>
                 <td>
-                  <button onClick={() => handleDelete(sale.id)}>Delete</button>
+                  <button className="btn btn-outline-dark" onClick={() => handleDelete(sale.id)}>Delete</button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      </div>
     </>
   );
 }

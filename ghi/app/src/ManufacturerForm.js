@@ -32,12 +32,14 @@ const ManufacturerForm = () => {
             console.log(newManufacturer);         // DELETE THIS CODE LATER??
 
             setName('');
+
+            navigate("/manufacturers");
         } else {
             const formAlert = document.getElementById("nameAlert");
             const wrapper = document.createElement('div')
             wrapper.innerHTML = [
                 `<div class="alert alert-danger alert-dismissible" role="alert">`,
-                `   <div>Bad Form!</div>`,
+                `   <div>Manufacturer already exists!</div>`,
                 '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
                 '</div>'
             ].join('')
@@ -45,7 +47,6 @@ const ManufacturerForm = () => {
             formAlert.append(wrapper);
 
         }
-        navigate("/manufacturers");
     }
 
 

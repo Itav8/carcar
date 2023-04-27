@@ -93,6 +93,18 @@ function SalesForm() {
         });
 
         return navigate("/sales");
+      } else {
+        const formAlert = document.getElementById("priceAlert");
+        const wrapper = document.createElement('div')
+        wrapper.innerHTML = [
+            `<div class="alert alert-danger alert-dismissible" role="alert">`,
+            `   <div>Problem with form, try again.</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+        ].join('')
+
+        formAlert.append(wrapper);
+
       }
     } catch (error) {
       console.error("Error:", error);
@@ -169,7 +181,7 @@ function SalesForm() {
                 })}
               </select>
             </div>
-            <div className="form-floating mb-3">
+            <div id="priceAlert" className="form-floating mb-3">
               <input
                 onChange={handleFormChange}
                 placeholder="price"

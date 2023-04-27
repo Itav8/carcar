@@ -52,6 +52,7 @@ function SalespersonHistory() {
     }
   };
 
+
   return (
     <>
       <h1>Salesperson History</h1>
@@ -72,7 +73,7 @@ function SalespersonHistory() {
           })}
         </select>
       </div>
-      <table className="table table-striped">
+      <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>Salesperson Name</th>

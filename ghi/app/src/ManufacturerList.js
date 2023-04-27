@@ -44,11 +44,13 @@ const ManufacturerList = () => {
 
 
     return (
+    <>
+      <h1>Manufacturers</h1>
     <div className="table-responsive">
         <table className='table table-striped table-bordered table-hover'>
             <thead>
                 <tr>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Manufacturer Name</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Name</th>
                     <th className="align-middle text-center">Delete?</th>
                 </tr>
             </thead>
@@ -56,9 +58,9 @@ const ManufacturerList = () => {
                 {manufacturers.map(manufacturer => {
                     return (
                         <tr key={manufacturer.id}>
-                            <td className="align-middle fw-bold px-3" style={{fontSize: '1.2rem'}}>{ manufacturer.name }</td>
+                            <td className="align-middle fw-normal px-3" style={{fontSize: '1.2rem'}}>{ manufacturer.name }</td>
                             <td className="align-middle px-3 text-center">
-                                <button className="btn btn-danger" role="button" onClick={() => handleDelete(manufacturer.id)}>
+                                <button className="btn btn-outline-dark" role="button" onClick={() => handleDelete(manufacturer.id)}>
                                     Delete
                                 </button>
                             </td>
@@ -68,7 +70,8 @@ const ManufacturerList = () => {
             </tbody>
         </table>
     </div>
-    )
+    </>
+    );
 }
 
 export default ManufacturerList

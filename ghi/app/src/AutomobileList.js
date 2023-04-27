@@ -52,7 +52,8 @@ function AutomobileList() {
   return (
     <>
       <h1>Automobiles</h1>
-      <table className="table table-striped table-hover">
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>VIN</th>
@@ -60,7 +61,8 @@ function AutomobileList() {
             <th>Year</th>
             <th>Model</th>
             <th>Manufacturer</th>
-            <th>Sold</th>
+            <th>Sold?</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -85,9 +87,7 @@ function AutomobileList() {
                 <td>{automobile.model.manufacturer.name}</td>
                 <td>{isSold}</td>
                 <td>
-                  <button onClick={() => handleDelete(automobile.vin)}>
-                    Delete
-                  </button>
+                  <button className="btn btn-outline-dark" onClick={() => handleDelete(automobile.vin)}>Delete</button>
                 </td>
               </tr>
             );
@@ -100,6 +100,7 @@ function AutomobileList() {
       >
         <p></p>
       </Modal>
+      </div>
     </>
   );
 }

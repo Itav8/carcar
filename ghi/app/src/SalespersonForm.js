@@ -34,9 +34,21 @@ function SalespersonForm() {
         lastName: "",
         employeeId: "",
       });
-    }
-    
-    return navigate("/salespeople")
+      return navigate("/salespeople")
+    } else {
+      const formAlert = document.getElementById("employeeIDAlert");
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+          `<div class="alert alert-danger alert-dismissible" role="alert">`,
+          `   <div>Duplicate Employee ID!</div>`,
+          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+          '</div>'
+      ].join('')
+
+      formAlert.append(wrapper);
+
+  }
+
   };
 
   const handleFormChange = (e) => {
@@ -77,7 +89,7 @@ function SalespersonForm() {
               />
               <label htmlFor="lastName">Last name...</label>
             </div>
-            <div className="form-floating mb-3">
+            <div id="employeeIDAlert" className="form-floating mb-3">
               <input
                 onChange={handleFormChange}
                 placeholder="Employee Id"

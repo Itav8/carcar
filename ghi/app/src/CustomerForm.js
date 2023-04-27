@@ -37,9 +37,21 @@ function CustomerForm() {
         address: "",
         phoneNumber: "",
       });
-    }
+      return navigate("/customer");
+    } else {
+      const formAlert = document.getElementById("phoneAlert");
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+          `<div class="alert alert-danger alert-dismissible" role="alert">`,
+          `   <div>Manufacturer already exists!</div>`,
+          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+          '</div>'
+      ].join('')
 
-    return navigate("/customer");
+      formAlert.append(wrapper);
+
+  }
+
   };
 
   const handleFormChange = (e) => {
@@ -91,7 +103,7 @@ function CustomerForm() {
               />
               <label htmlFor="address">Address...</label>
             </div>
-            <div className="form-floating mb-3">
+            <div id="phoneAlert" className="form-floating mb-3">
               <input
                 onChange={handleFormChange}
                 placeholder="Phone number"
