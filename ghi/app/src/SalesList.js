@@ -19,11 +19,6 @@ function SalesList() {
     }
   };
 
-  const priceFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  })
-
   useEffect(() => {
     const fetchSales = async () => {
       const salesList = await fetch("http://localhost:8090/api/sales/");
@@ -60,7 +55,8 @@ function SalesList() {
                 <td>{salespersonName}</td>
                 <td>{customerName}</td>
                 <td>{sale.automobile.vin}</td>
-                <td>{priceFormatter.format(sale.price)}</td>
+                {/* update price setup */}
+                <td>${sale.price}</td>
                 <td>
                   <button onClick={() => handleDelete(sale.id)}>Delete</button>
                 </td>

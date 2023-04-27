@@ -46,7 +46,7 @@ Explain your models and integration with the inventory
 microservice, here.
 Models:
     AutomobileVO
-        - Contains all the Automobile VINs polled from Inventory microservice.
+        - Contains all the Automobile VINs polled from Inventory microservice
     Salesperson
         - Contains the necessary infomation for a salesperson and setting the `employee_id` unique to True to prevent any duplication.
     Customer
@@ -56,4 +56,4 @@ Models:
 
 Poller Microservice:
     Inventory
-        - Automobile Model: It polls this data every minute to add Automobile VIN to the Sales Microservice database for AutomobileVO.
+        - Automobile Model: It polls this data every minute to add Automobile VIN to the Sales Microservice database for AutomobileVO
