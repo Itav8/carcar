@@ -79,13 +79,13 @@ const AppointmentList = () => {
         <table className='table table-striped table-bordered table-hover'>
             <thead>
                 <tr>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>VIN</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Is VIP?</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Customer</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Date</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Time</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Technician</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1.2rem'}}>Reason</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>VIN</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Is VIP?</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Customer</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Date</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Time</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Technician</th>
+                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Reason</th>
                     <th className="align-middle text-center">Cancel/Finish</th>
                 </tr>
             </thead>
@@ -93,16 +93,18 @@ const AppointmentList = () => {
                 {appointments.map(appointment => {
                     return (
                         <tr key={appointment.id}>
-                            <td className="align-middle fw-bold px-3" style={{fontSize: '1.2rem'}}>{ appointment.vin }</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>
+                            <td className="align-middle fw-bold px-3" style={{fontSize: '1rem'}}>{ appointment.vin }</td>
+                            <td className="align-middle px-3"
+                                style={{fontSize: '1rem', color: (vins.indexOf(appointment.vin) > -1) ? 'green' : 'black'}}
+                            >
                                 { (vins.indexOf(appointment.vin) > -1) && `YES` }
-                                { !(vins.indexOf(appointment.vin) > -1) && `NO` }
+                                { !(vins.indexOf(appointment.vin) > -1) && `No` }
                                 </td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ appointment.customer }</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{new Date(appointment.date_time).toLocaleDateString()}</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{new Date(appointment.date_time).toLocaleTimeString()}</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ appointment.technician }</td>
-                            <td className="align-middle px-3" style={{fontSize: '2rem'}}>{ appointment.reason }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.customer }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleDateString()}</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleTimeString()}</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.technician }</td>
+                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.reason }</td>
                             <td className="align-middle px-3 text-center">
                                 <button className="btn btn-outline-danger" role="button" onClick={() => handleCancel(appointment.id)}>
                                     Cancel
