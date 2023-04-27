@@ -29,7 +29,6 @@ function AutomobileList() {
 
       if (automobileList.ok) {
         const data = await automobileList.json();
-        console.log(data.autos);
         setAutomobiles(data.autos);
       }
     };
@@ -53,7 +52,12 @@ function AutomobileList() {
         </thead>
         <tbody>
           {automobiles.map((automobile, i) => {
-            console.log(automobile);
+            let isSold = ''
+            if (automobile.model.sold) {
+              isSold = "Yes"
+            } else {
+              isSold = "No"
+            }
             return (
               <tr key={i}>
                 <td>{automobile.vin}</td>
@@ -61,8 +65,7 @@ function AutomobileList() {
                 <td>{automobile.year}</td>
                 <td>{automobile.model.name}</td>
                 <td>{automobile.model.manufacturer.name}</td>
-                {/* use boolean to set to yes or no */}
-                <td>{automobile.model.sold}</td>
+                <td>{isSold}</td>
                 {/* add a edit button */}
                 <td>
                   <button onClick={() => handleDelete(automobile.vin)}>Delete</button>
