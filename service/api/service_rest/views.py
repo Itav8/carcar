@@ -33,6 +33,20 @@ class AppointmentListEncoder(ModelEncoder):
                 }
 
 
+class AppointmentDetailEncoder(ModelEncoder):
+    model = Appointment
+    properties = [
+        "date_time",
+        "id",
+        "reason",
+        "vin",
+        "customer",
+    ]
+    def get_extra_data(self, o):
+        return {"status": o.status.name,
+                "technician": f'{o.technician.first_name} {o.technician.last_name}',
+                }
+
 @require_http_methods(["GET", "POST"])
 def list_technicians(request):
     if request.method == "GET":
@@ -81,6 +95,7 @@ def delete_technician(request, employee_id):
                 tech,
                 encoder=TechnicianListEncoder,
                 safe=False,
+                status=200,
             )
         except Technician.DoesNotExist:
             return JsonResponse({"message": "Technician does not exist"},
@@ -170,10 +185,10 @@ def cancel_appointment(request, pk):
             {"message": "Invalid appointment"},
             status=400,
         )
-    appointments = Appointment.objects.all()
+    # appointments = Appointment.objects.all()
     return JsonResponse(
-        {"appointments": appointments},
-        encoder=AppointmentListEncoder,
+        {"appointment": appointment},
+        encoder=AppointmentDetailEncoder,
         safe=False,
     )
 
@@ -188,10 +203,10 @@ def finish_appointment(request, pk):
             {"message": "Invalid appointment"},
             status=400,
         )
-    appointments = Appointment.objects.all()
+    # appointments = Appointment.objects.all()
     return JsonResponse(
-        {"appointments": appointments},
-        encoder=AppointmentListEncoder,
+        {"appointment": appointment},
+        encoder=AppointmentDetailEncoder,
         safe=False,
     )
 
@@ -203,7 +218,7 @@ def list_statuses(request):
     for status in statuses:
         data.append(
             {
-                "pk": status.id,
+                "pk": status.status_id,
                 "name": status.name,
             }
         )

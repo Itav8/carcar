@@ -51,7 +51,7 @@ const AppointmentList = () => {
         const automobileVOsResponse = await fetch (AUTOMOBILEVOS_URL);
         if(appointmentsResponse.ok) {
             const data = await appointmentsResponse.json();
-            setAppointments(data.appointments.filter(appointment => appointment.status === 'Created'));
+            setAppointments(data.appointments.filter(appointment => appointment.status === 'created'));
         } else {
             throw new Error('Appointments Response not ok!');
         }

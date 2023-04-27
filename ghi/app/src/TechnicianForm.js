@@ -45,6 +45,7 @@ const TechnicianForm = () => {
             setFirstName('');
             setLastName('');
             setEmployeeID('');
+            navigate("/technicians");
         } else {
             const formAlert = document.getElementById("employeeIdAlert");
             const wrapper = document.createElement('div')
@@ -58,7 +59,6 @@ const TechnicianForm = () => {
             formAlert.append(wrapper);
 
         }
-        navigate("/technicians");
     }
 
 
