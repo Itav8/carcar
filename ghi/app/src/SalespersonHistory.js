@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// add to prevent data being deleted for history when user delete a sale from SalesList
+
 function SalespersonHistory() {
   const [salespeople, setSalespeople] = useState([]);
   const [salespersonSales, setSalespersonSales] = useState([]);
@@ -28,6 +28,11 @@ function SalespersonHistory() {
     fetchSalespersonData();
   }, []);
 
+  const priceFormatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
   const handleSelectPerson = async (e) => {
     const employeeId = e.target.value;
 
@@ -47,16 +52,6 @@ function SalespersonHistory() {
     }
   };
 
-
-  // Create our number formatter.
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-
-    // These options are needed to round to whole numbers if that's what you want.
-    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-  });
 
   return (
     <>
@@ -96,8 +91,7 @@ function SalespersonHistory() {
                 <td>{salespersonName}</td>
                 <td>{customerName}</td>
                 <td>{salespersonSale.automobile.vin}</td>
-                {/* update price setup */}
-                <td>{ formatter.format(salespersonSale.price) }</td>
+                <td>{priceFormatter.format(salespersonSale.price)}</td>
               </tr>
             );
           })}

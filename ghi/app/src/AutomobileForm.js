@@ -71,7 +71,7 @@ const AutomobileForm = () => {
             formAlert.append(wrapper);
 
         }
-        // navigate("/automobiles");
+        navigate("/automobiles");
     }
 
     const fetchData = async () => {

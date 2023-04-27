@@ -20,7 +20,9 @@ function SalesForm() {
 
       if (response.ok) {
         const vinData = await response.json();
-        setVins(vinData.autos);
+        console.log(vinData.autos);
+        const filteredVins = vinData.autos.filter((auto) => !auto.sold);
+        setVins(filteredVins);
       }
     };
 
@@ -59,7 +61,6 @@ function SalesForm() {
       customer: formData.customer,
       price: formData.price,
     };
-
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -68,29 +69,47 @@ function SalesForm() {
       },
     };
 
-    const response = await fetch(url, fetchConfig);
-    if (response.ok) {
-      setFormData({
-        automobileVin: "",
-        salesperson: "",
-        customer: "",
-        price: "",
-      });
-      return navigate("/sales");
-    } else {
-      const formAlert = document.getElementById("priceAlert");
-      const wrapper = document.createElement('div')
-      wrapper.innerHTML = [
-          `<div class="alert alert-danger alert-dismissible" role="alert">`,
-          `   <div>Problem with form, try again.</div>`,
-          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-          '</div>'
-      ].join('')
+    const updateUrl = `http://localhost:8100/api/automobiles/${formData.automobileVin}/`;
+    const updateData = {
+      sold: true,
+    };
+    const autoFetchConfig = {
+      method: "put",
+      body: JSON.stringify(updateData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-      formAlert.append(wrapper);
+    try {
+      const automobileResponse = await fetch(updateUrl, autoFetchConfig);
+      const salesResponse = await fetch(url, fetchConfig);
 
-  }
+      if (salesResponse.ok && automobileResponse.ok) {
+        setFormData({
+          automobileVin: "",
+          salesperson: "",
+          customer: "",
+          price: "",
+        });
 
+        return navigate("/sales");
+      } else {
+        const formAlert = document.getElementById("priceAlert");
+        const wrapper = document.createElement('div')
+        wrapper.innerHTML = [
+            `<div class="alert alert-danger alert-dismissible" role="alert">`,
+            `   <div>Problem with form, try again.</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+        ].join('')
+
+        formAlert.append(wrapper);
+
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleFormChange = (e) => {
@@ -168,11 +187,11 @@ function SalesForm() {
                 onChange={handleFormChange}
                 placeholder="price"
                 required
-                type="text"
+                type="number"
                 name="price"
                 className="form-control"
               />
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price">$</label>
             </div>
             <button className="btn btn-primary">Create</button>
           </form>

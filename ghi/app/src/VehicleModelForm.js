@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function VehicleModeForm() {
+function VehicleModelForm() {
   const navigate = useNavigate();
   const [manufacturers, setManufactures] = useState([]);
   const [formData, setFormData] = useState({
@@ -129,4 +129,4 @@ function VehicleModeForm() {
   );
 }
 
-export default VehicleModeForm;
+export default VehicleModelForm;
