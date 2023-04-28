@@ -1,11 +1,14 @@
 import { React, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Alert from './Alert';
 
 const TechnicianForm = () => {
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState([]);
     const [lastName, setLastName] = useState([]);
     const [employeeID, setEmployeeID] = useState([]);
+    const [alert, setAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const handleFirstNameChange = (event) => {
         const value = event.target.value;
@@ -37,28 +40,23 @@ const TechnicianForm = () => {
             },
         };
 
+        try {
         const response = await fetch(technicianURL, fetchConfig);
         if (response.ok) {
             const newTechnician = await response.json();
-            console.log(newTechnician);         // DELETE THIS CODE LATER??
 
             setFirstName('');
             setLastName('');
             setEmployeeID('');
             navigate("/technicians");
         } else {
-            const formAlert = document.getElementById("employeeIdAlert");
-            const wrapper = document.createElement('div')
-            wrapper.innerHTML = [
-                `<div class="alert alert-danger alert-dismissible" role="alert">`,
-                `   <div>Duplicate Employee ID!</div>`,
-                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-                '</div>'
-            ].join('')
-
-            formAlert.append(wrapper);
-
+            setAlert(true);
+            setAlertMessage("Duplicate Employee ID!");
         }
+    } catch(error) {
+        setAlert(true);
+        setAlertMessage("Problem with request, try again later.");
+    }
     }
 
 
@@ -88,6 +86,12 @@ const TechnicianForm = () => {
         </div>
         </div>
         </div>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     </div>
   )
 }

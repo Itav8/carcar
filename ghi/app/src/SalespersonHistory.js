@@ -63,7 +63,7 @@ function SalespersonHistory() {
           id="salesperson"
           className="form-select"
         >
-          <option value="">Choose an salesperson...</option>
+          <option value="">Choose a salesperson...</option>
           {salespeople.map((salesperson, i) => {
             return (
               <option key={i} value={salesperson.employee_id}>

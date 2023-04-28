@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
+import Alert from './Alert';
 import AutomobileFormEdit from "./AutomobileFormEdit";
-// add a detail feature when you name (id)
+
 function AutomobileList() {
   const [automobiles, setAutomobiles] = useState([]);
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleDelete = async (vin) => {
     const url = `http://localhost:8100/api/automobiles/${vin}/`;
@@ -17,9 +20,14 @@ function AutomobileList() {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
+      setAlert(true);
+      setAlertMessage("Successfully Deleted!");
       setAutomobiles(
         automobiles.filter((automobile) => automobile.vin !== vin)
       );
+    } else {
+      setAlert(true);
+      setAlertMessage("Problem with delete, try again later.");
     }
   };
 
@@ -41,6 +49,12 @@ function AutomobileList() {
   return (
     <>
       <h1>Automobiles</h1>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
       <div className="table-responsive">
         <table className="table table-striped table-bordered table-hover">
           <thead>

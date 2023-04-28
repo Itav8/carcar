@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from './Alert';
 
 function SalespersonForm() {
   const navigate = useNavigate();
@@ -8,6 +9,8 @@ function SalespersonForm() {
     lastName: "",
     employeeId: "",
   });
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +29,7 @@ function SalespersonForm() {
         "Content-Type": "application/json",
       },
     };
-
+    try {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       setFormData({
@@ -36,18 +39,12 @@ function SalespersonForm() {
       });
       return navigate("/salespeople")
     } else {
-      const formAlert = document.getElementById("employeeIDAlert");
-      const wrapper = document.createElement('div')
-      wrapper.innerHTML = [
-          `<div class="alert alert-danger alert-dismissible" role="alert">`,
-          `   <div>Duplicate Employee ID!</div>`,
-          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-          '</div>'
-      ].join('')
-
-      formAlert.append(wrapper);
-
-  }
+      setAlert(true);
+      setAlertMessage("Duplicate Manufacturer!");
+  }} catch(error) {
+    setAlert(true);
+    setAlertMessage("Problem with request, try again later.");
+}
 
   };
 
@@ -104,6 +101,12 @@ function SalespersonForm() {
           </form>
         </div>
       </div>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     </div>
   );
 }

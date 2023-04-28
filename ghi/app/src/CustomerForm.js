@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from './Alert';
 
 function CustomerForm() {
   const navigate = useNavigate();
@@ -9,6 +10,8 @@ function CustomerForm() {
     address: "",
     phoneNumber: "",
   });
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +32,7 @@ function CustomerForm() {
       },
     };
 
+    try {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       setFormData({
@@ -39,18 +43,13 @@ function CustomerForm() {
       });
       return navigate("/customer");
     } else {
-      const formAlert = document.getElementById("phoneAlert");
-      const wrapper = document.createElement('div')
-      wrapper.innerHTML = [
-          `<div class="alert alert-danger alert-dismissible" role="alert">`,
-          `   <div>Manufacturer already exists!</div>`,
-          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-          '</div>'
-      ].join('')
-
-      formAlert.append(wrapper);
-
+      setAlert(true);
+      setAlertMessage("Problem with customer, try again.");
   }
+} catch(error) {
+    setAlert(true);
+    setAlertMessage("Problem with request, try again later.");
+}
 
   };
 
@@ -118,6 +117,12 @@ function CustomerForm() {
           </form>
         </div>
       </div>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     </div>
   );
 }

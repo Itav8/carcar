@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import Alert from "./Alert";
 import Modal from "./Modal";
 import VehicleModelFormEdit from "./VehicleModelFormEdit";
-// add a detail feature when you name (id)
+
 function VehicleModelList() {
   const [models, setModels] = useState([]);
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleDelete = async (modelId) => {
     const url = `http://localhost:8100/api/models/${modelId}/`;
@@ -17,7 +20,12 @@ function VehicleModelList() {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
+      setAlert(true);
+      setAlertMessage("Successfully Deleted!");
       setModels(models.filter((model) => model.id !== modelId));
+    } else {
+      setAlert(true);
+      setAlertMessage("Problem with delete, try again later.");
     }
   };
 
@@ -37,6 +45,10 @@ function VehicleModelList() {
   return (
     <>
       <h1>Models</h1>
+      <Alert alert={alert} message={alertMessage}>
+        <></>
+      </Alert>
+
       <div className="table-responsive">
         <table className="table table-striped table-bordered table-hover">
           <thead>

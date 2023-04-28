@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from './Alert';
 
 function SalesForm() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ function SalesForm() {
     customer: "",
     price: null,
   });
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     const fetchVinData = async () => {
@@ -94,20 +97,14 @@ function SalesForm() {
 
         return navigate("/sales");
       } else {
-        const formAlert = document.getElementById("priceAlert");
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = [
-          `<div className="alert alert-danger alert-dismissible" role="alert">`,
-          `   <div>Problem with form, try again.</div>`,
-          '   <button type="button" classNm="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-          "</div>",
-        ].join("");
-
-        formAlert.append(wrapper);
-      }
-    } catch (error) {
-      console.error("Error:", error);
+        setAlert(true);
+        setAlertMessage("Duplicate Manufacturer!");
     }
+
+  } catch(error) {
+      setAlert(true);
+      setAlertMessage("Problem with request, try again later.");
+  }
   };
 
   const handleFormChange = (e) => {
@@ -195,6 +192,12 @@ function SalesForm() {
           </form>
         </div>
       </div>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     </div>
   );
 }

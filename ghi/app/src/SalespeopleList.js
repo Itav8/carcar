@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Alert from './Alert';
 
 function SalespeopleList() {
   const [salespeople, setSalespeople] = useState([]);
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleDelete = async (employeeId) => {
     const url = `http://localhost:8090/api/salespeople/${employeeId}/`;
@@ -15,7 +18,12 @@ function SalespeopleList() {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
+      setAlert(true);
+      setAlertMessage("Successfully Deleted!");
       setSalespeople(salespeople.filter((salesperson) => salesperson.employee_id !== employeeId));
+    } else {
+      setAlert(true);
+      setAlertMessage("Problem with delete, try again later.");
     }
   };
 
@@ -37,6 +45,12 @@ function SalespeopleList() {
   return (
     <>
       <h1>Salespeople</h1>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     <div className="table-responsive">
       <table className="table table-striped table-bordered table-hover">
         <thead>

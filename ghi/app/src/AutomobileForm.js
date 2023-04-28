@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
 const AutomobileForm = () => {
   const navigate = useNavigate();
@@ -8,7 +9,8 @@ const AutomobileForm = () => {
   const [year, setYear] = useState("");
   const [vin, setVin] = useState("");
   const [model, setModel] = useState("");
-  // const [locationID, setLocationID] = useState('');
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleColorChange = (event) => {
     const value = event.target.value;
@@ -18,6 +20,7 @@ const AutomobileForm = () => {
     const value = event.target.value;
     setYear(value);
   };
+
   const handleVinChange = (event) => {
     const value = event.target.value;
     setVin(value);
@@ -30,7 +33,6 @@ const AutomobileForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // create an empty JSON object
     const data = {};
 
     data.vin = vin;
@@ -49,28 +51,26 @@ const AutomobileForm = () => {
       },
     };
 
-    const response = await fetch(automobilesUrl, fetchConfig);
-    if (response.ok) {
-      const newAutomobile = await response.json();
-      console.log(newAutomobile);
+    try {
+      const response = await fetch(automobilesUrl, fetchConfig);
+      if (response.ok) {
+        const newAutomobile = await response.json();
+        console.log(newAutomobile);
 
-      setVin("");
-      setColor("");
-      setModel("");
-      setYear("");
-    } else {
-      const formAlert = document.getElementById("vinAlert");
-      const wrapper = document.createElement("div");
-      wrapper.innerHTML = [
-        `<div class="alert alert-danger alert-dismissible" role="alert">`,
-        `   <div>Duplicate VIN!</div>`,
-        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-        "</div>",
-      ].join("");
+        setVin("");
+        setColor("");
+        setModel("");
+        setYear("");
 
-      formAlert.append(wrapper);
+        navigate("/automobiles");
+      } else {
+        setAlert(true);
+        setAlertMessage("Duplicate VIN! Please try again.");
+      }
+    } catch (error) {
+      setAlert(true);
+      setAlertMessage("Problem with request, try again later.");
     }
-    navigate("/automobiles");
   };
 
   const fetchData = async () => {
@@ -158,6 +158,9 @@ const AutomobileForm = () => {
             </form>
           </div>
         </div>
+        <Alert alert={alert} message={alertMessage}>
+          <></>
+        </Alert>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
 function VehicleModelForm() {
   const navigate = useNavigate();
@@ -9,6 +10,8 @@ function VehicleModelForm() {
     pictureUrl: "",
     manufacturer: "",
   });
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     const fetchManufaturerData = async () => {
@@ -42,6 +45,7 @@ function VehicleModelForm() {
       },
     };
 
+    try {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       setFormData({
@@ -51,18 +55,14 @@ function VehicleModelForm() {
       });
       return navigate("/models");
     } else {
-      const formAlert = document.getElementById("urlAlert");
-      const wrapper = document.createElement('div')
-      wrapper.innerHTML = [
-          `<div class="alert alert-danger alert-dismissible" role="alert">`,
-          `   <div>Problem with form (note that URL must be < 200 characters)</div>`,
-          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-          '</div>'
-      ].join('')
+      setAlert(true);
+      setAlertMessage("Bad model, try again! (URL must be < 200 characters)");
+    }
+    }catch(error) {
+      setAlert(true);
+      setAlertMessage("Problem with request, try again later.");
+    }
 
-      formAlert.append(wrapper);
-
-  }
 
   };
 
@@ -125,6 +125,12 @@ function VehicleModelForm() {
           </form>
         </div>
       </div>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     </div>
   );
 }
