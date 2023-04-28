@@ -1,7 +1,7 @@
-import { React, useState, useEffect } from 'react'
-import Alert from './Alert';
-import Modal from './Modal';
-import ManufacturerFormEdit from './ManufacturerFormEdit';
+import { React, useState, useEffect } from "react";
+import Alert from "./Alert";
+import Modal from "./Modal";
+import ManufacturerFormEdit from "./ManufacturerFormEdit";
 
 const ManufacturerList = () => {
   const API_URL = "http://localhost:8100/api/manufacturers";
@@ -79,6 +79,21 @@ const ManufacturerList = () => {
                   >
                     {manufacturer.name}
                   </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-dark"
+                      data-bs-toggle="modal"
+                      data-bs-target={`#manufacturerModal-${manufacturer.id}`}
+                    >
+                      Edit
+                    </button>
+                    <Modal
+                      id={`manufacturerModal-${manufacturer.id}`}
+                      title="Edit Manufacturer"
+                    >
+                      <ManufacturerFormEdit manufacturer={manufacturer} />
+                    </Modal>
+                  </td>
                   <td className="align-middle px-3 text-center">
                     <button
                       className="btn btn-outline-dark"
@@ -87,11 +102,6 @@ const ManufacturerList = () => {
                     >
                       Delete
                     </button>
-                  </td>
-                  <td className="d-none">
-                    <Modal id={`manufacturerModal-${manufacturer.id}`} title="Edit Manufacturer">
-                      <ManufacturerFormEdit manufacturer={manufacturer} />
-                    </Modal>
                   </td>
                 </tr>
               );

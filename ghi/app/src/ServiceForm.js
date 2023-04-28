@@ -156,10 +156,13 @@ const ServiceForm = () => {
                   required
                   name="time"
                   type="time"
+                  min="09:00"
+                  max="18:00"
+                  step="900"
                   id="time"
                   className="form-control"
                 ></input>
-                <label htmlFor="time">Time</label>
+                <label htmlFor="time">Time (9am-6pm)</label>
               </div>
               <div className="mb-3">
                 <select

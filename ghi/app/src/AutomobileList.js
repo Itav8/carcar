@@ -90,6 +90,9 @@ function AutomobileList() {
                     >
                       Edit
                     </button>
+                    <Modal id={`automobileModal-${i}`} title="Edit Automobile">
+                      <AutomobileFormEdit automobile={automobile} />
+                    </Modal>
                   </td>
                   <td>
                     <button
@@ -98,11 +101,6 @@ function AutomobileList() {
                     >
                       Delete
                     </button>
-                  </td>
-                  <td className="d-none">
-                    <Modal id={`automobileModal-${i}`} title="Edit Automobile">
-                      <AutomobileFormEdit automobile={automobile} />
-                    </Modal>
                   </td>
                 </tr>
               );

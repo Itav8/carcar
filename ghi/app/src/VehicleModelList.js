@@ -82,6 +82,9 @@ function VehicleModelList() {
                     >
                       Edit
                     </button>
+                    <Modal id={`vehicleModal-${i}`} title="Edit Automobile">
+                      <VehicleModelFormEdit model={model} />
+                    </Modal>
                   </td>
                   <td>
                     <button
@@ -90,11 +93,6 @@ function VehicleModelList() {
                     >
                       Delete
                     </button>
-                  </td>
-                  <td className="d-none">
-                    <Modal id={`vehicleModal-${i}`} title="Edit Automobile">
-                      <VehicleModelFormEdit model={model} />
-                    </Modal>
                   </td>
                 </tr>
               );
