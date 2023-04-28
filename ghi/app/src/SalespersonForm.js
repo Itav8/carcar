@@ -97,16 +97,13 @@ function SalespersonForm() {
               />
               <label htmlFor="employeeId">Employee ID...</label>
             </div>
-            <button className="btn btn-primary">Create</button>
+            <button className="btn btn-outline-success">Create</button>
           </form>
         </div>
       </div>
-        <Alert
-            alert={alert}
-            message={alertMessage}
-        >
-            <></>
-        </Alert>
+      <Alert alert={alert} message={alertMessage}>
+        <></>
+      </Alert>
     </div>
   );
 }
