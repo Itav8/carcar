@@ -62,8 +62,8 @@ function AutomobileList() {
               <th>Model</th>
               <th>Manufacturer</th>
               <th>Sold</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              <th className="align-middle text-center">Edit</th>
+              <th className="align-middle text-center">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -82,7 +82,7 @@ function AutomobileList() {
                   <td>{automobile.model.name}</td>
                   <td>{automobile.model.manufacturer.name}</td>
                   <td>{isSold}</td>
-                  <td>
+                  <td className="align-middle px-3 text-center">
                     <button
                       className="btn btn-outline-dark"
                       data-bs-toggle="modal"
@@ -94,7 +94,7 @@ function AutomobileList() {
                       <AutomobileFormEdit automobile={automobile} />
                     </Modal>
                   </td>
-                  <td>
+                  <td className="align-middle px-3 text-center">
                     <button
                       className="btn btn-outline-dark"
                       onClick={() => handleDelete(automobile.vin)}
