@@ -91,9 +91,11 @@ function VehicleModelList() {
                       Delete
                     </button>
                   </td>
-                  <Modal id={`vehicleModal-${i}`} title="Edit Automobile">
-                    <VehicleModelFormEdit model={model} />
-                  </Modal>
+                  <td className="d-none">
+                    <Modal id={`vehicleModal-${i}`} title="Edit Automobile">
+                      <VehicleModelFormEdit model={model} />
+                    </Modal>
+                  </td>
                 </tr>
               );
             })}

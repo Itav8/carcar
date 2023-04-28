@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
-import Alert from './Alert';
+import Alert from "./Alert";
 import AutomobileFormEdit from "./AutomobileFormEdit";
 
 function AutomobileList() {
@@ -49,12 +49,9 @@ function AutomobileList() {
   return (
     <>
       <h1>Automobiles</h1>
-        <Alert
-            alert={alert}
-            message={alertMessage}
-        >
-            <></>
-        </Alert>
+      <Alert alert={alert} message={alertMessage}>
+        <></>
+      </Alert>
       <div className="table-responsive">
         <table className="table table-striped table-bordered table-hover">
           <thead>
@@ -102,9 +99,11 @@ function AutomobileList() {
                       Delete
                     </button>
                   </td>
-                  <Modal id={`automobileModal-${i}`} title="Edit Automobile">
-                    <AutomobileFormEdit automobile={automobile} />
-                  </Modal>
+                  <td className="d-none">
+                    <Modal id={`automobileModal-${i}`} title="Edit Automobile">
+                      <AutomobileFormEdit automobile={automobile} />
+                    </Modal>
+                  </td>
                 </tr>
               );
             })}

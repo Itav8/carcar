@@ -19,6 +19,7 @@ def list_technicians(request):
             encoder=TechnicianListEncoder,
         )
     else:
+        print("list_tech ELSE!!")
         content = json.loads(request.body)
         try:
             Technician.objects.create(**content)
@@ -28,9 +29,7 @@ def list_technicians(request):
                 encoder=TechnicianListEncoder,
             )
         except:
-            response = JsonResponse(
-                {"message": "Could not create the technician"}
-            )
+            response = JsonResponse({"message": "Could not create the technician"})
             response.status_code = 400
             return response
 
@@ -48,9 +47,10 @@ def delete_technician(request, employee_id):
                 status=200,
             )
         except Technician.DoesNotExist:
-            return JsonResponse({"message": "Technician does not exist"},
-                                status=400,
-                                )
+            return JsonResponse(
+                {"message": "Technician does not exist"},
+                status=400,
+            )
 
 
 @require_http_methods(["GET", "POST"])
@@ -71,14 +71,14 @@ def list_appointments(request):
             technician = appointment.technician.first_name
             data.append(
                 {
-                    'id': id,
-                    'date': date,
-                    'time': time,
-                    'reason': reason,
-                    'status': status,
-                    'vin': vin,
-                    'customer': customer,
-                    'technician': technician,
+                    "id": id,
+                    "date": date,
+                    "time": time,
+                    "reason": reason,
+                    "status": status,
+                    "vin": vin,
+                    "customer": customer,
+                    "technician": technician,
                 }
             )
         return JsonResponse(
@@ -118,9 +118,10 @@ def delete_appointment(request, pk):
                 safe=False,
             )
         except Appointment.DoesNotExist:
-            return JsonResponse({"message": "Appointment does not exist"},
-                                status=400,
-                                )
+            return JsonResponse(
+                {"message": "Appointment does not exist"},
+                status=400,
+            )
 
 
 @require_http_methods(["PUT"])

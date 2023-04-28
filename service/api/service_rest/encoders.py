@@ -24,9 +24,10 @@ class AppointmentListEncoder(ModelEncoder):
     ]
 
     def get_extra_data(self, o):
-        return {"status": o.status.name,
-                "technician": f'{o.technician.first_name} {o.technician.last_name}',
-                }
+        return {
+            "status": o.status.name,
+            "technician": f"{o.technician.first_name} {o.technician.last_name}",
+        }
 
 
 class AppointmentDetailEncoder(ModelEncoder):
@@ -40,6 +41,7 @@ class AppointmentDetailEncoder(ModelEncoder):
     ]
 
     def get_extra_data(self, o):
-        return {"status": o.status.name,
-                "technician": f'{o.technician.first_name} {o.technician.last_name}',
-                }
+        return {
+            "status": o.status.name,
+            "technician": f"{o.technician.first_name} {o.technician.last_name}",
+        }

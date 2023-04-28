@@ -88,9 +88,11 @@ const ManufacturerList = () => {
                       Delete
                     </button>
                   </td>
-                  <Modal id={`manufacturerModal-${manufacturer.id}`} title="Edit Manufacturer">
-                    <ManufacturerFormEdit manufacturer={manufacturer} />
-                  </Modal>
+                  <td className="d-none">
+                    <Modal id={`manufacturerModal-${manufacturer.id}`} title="Edit Manufacturer">
+                      <ManufacturerFormEdit manufacturer={manufacturer} />
+                    </Modal>
+                  </td>
                 </tr>
               );
             })}

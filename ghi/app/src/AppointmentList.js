@@ -27,13 +27,13 @@ const AppointmentList = () => {
     const reqUrl = `${APPOINTMENTS_URL}/${id}/cancel`;
     const result = await apiRequest(reqUrl, putOptions);
     if (result) {
+      setAlert(true);
+      setAlertMessage("Could not Cancel!");
+    } else {
       const newAppointments = appointments.filter(
         (appointment) => appointment.id !== id
       );
       setAppointments(newAppointments);
-    } else {
-      setAlert(true);
-      setAlertMessage("Could not Cancel!");
     }
   };
 
@@ -42,13 +42,13 @@ const AppointmentList = () => {
     const reqUrl = `${APPOINTMENTS_URL}/${id}/finish`;
     const result = await apiRequest(reqUrl, putOptions);
     if (result) {
+      setAlert(true);
+      setAlertMessage("Could not Finish!");
+    } else {
       const newAppointments = appointments.filter(
         (appointment) => appointment.id !== id
       );
       setAppointments(newAppointments);
-    } else {
-      setAlert(true);
-      setAlertMessage("Could not Finish!");
     }
   };
 
@@ -141,12 +141,7 @@ const AppointmentList = () => {
           <tbody>
             {appointments.map((appointment) => {
               return (
-                <tr
-                  key={appointment.id}
-                  data-bs-toggle="modal"
-                  data-bs-target="#appointmentModal"
-                  role="button"
-                >
+                <tr key={appointment.id}>
                   <td
                     className="align-middle fw-bold px-3"
                     style={{ fontSize: "1rem" }}
@@ -199,7 +194,7 @@ const AppointmentList = () => {
                   </td>
                   <td className="align-middle px-3 text-center">
                     <button
-                      className="btn btn-outline-dange/services/newr"
+                      className="btn btn-outline-danger"
                       role="button"
                       onClick={() => handleCancel(appointment.id)}
                     >
@@ -218,9 +213,6 @@ const AppointmentList = () => {
             })}
           </tbody>
         </table>
-        <Modal id="appointmentModal" title="Edit Appointment">
-          <p></p>
-        </Modal>
       </div>
     </>
   );
