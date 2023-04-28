@@ -42,7 +42,7 @@ const ServiceForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    
     const data = {};
 
     data.vin = vin;

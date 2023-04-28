@@ -40,7 +40,7 @@ function VehicleModelFormEdit(props) {
       [inputName]: value,
     });
   };
-  console.log(props.model.name, props.model.id);
+  
   return (
     <div className="p-3" data-bs-focus={true}>
       <div className="d-flex justify-content-between">

@@ -91,7 +91,7 @@ function VehicleModelList() {
                       Delete
                     </button>
                   </td>
-                  <Modal id={`vehicleModal-${i}`} title="Edit Automobile">
+                  <Modal id={`vehicleModal-${i}`} title="Edit Model">
                     <VehicleModelFormEdit model={model} />
                   </Modal>
                 </tr>
