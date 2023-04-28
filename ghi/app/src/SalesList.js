@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function SalesList() {
   const [sales, setSales] = useState([]);
 
-  const handleDelete = async (salesId) => {
+  const handleDelete = async (salesId, vin) => {
     const url = `http://localhost:8090/api/sales/${salesId}/`;
 
     const fetchConfig = {
@@ -13,8 +13,25 @@ function SalesList() {
       },
     };
 
+    const updatedData = {
+      sold: false,
+    };
+
+    const autoFetchConfig = {
+      method: "put",
+      body: JSON.stringify(updatedData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const updatedResponse = await fetch(
+      `http://localhost:8100/api/automobiles/${vin}/`,
+      autoFetchConfig
+    );
+
     const response = await fetch(url, fetchConfig);
-    if (response.ok) {
+    if (response.ok && updatedResponse.ok) {
       setSales(sales.filter((sale) => sale.id !== salesId));
     }
   };
@@ -37,41 +54,45 @@ function SalesList() {
     fetchSales();
   }, []);
 
-
   return (
     <>
       <h1>Sales</h1>
-    <div className="table-responsive">
-      <table className="table table-striped table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>Salesperson Employee ID</th>
-            <th>Salesperson Name</th>
-            <th>Customer</th>
-            <th>VIN</th>
-            <th>Price</th>
-            <th>Delete?</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sales.map((sale, i) => {
-            const salespersonName = `${sale.salesperson.first_name} ${sale.salesperson.last_name}`;
-            const customerName = `${sale.customer.first_name} ${sale.customer.last_name}`;
-            return (
-              <tr key={i}>
-                <td>{sale.salesperson.employee_id}</td>
-                <td>{salespersonName}</td>
-                <td>{customerName}</td>
-                <td>{sale.automobile.vin}</td>
-                <td>{priceFormatter.format(sale.price)}</td>
-                <td>
-                  <button className="btn btn-outline-dark" onClick={() => handleDelete(sale.id)}>Delete</button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="table-responsive">
+        <table className="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Salesperson Employee ID</th>
+              <th>Salesperson Name</th>
+              <th>Customer</th>
+              <th>VIN</th>
+              <th>Price</th>
+              <th>Delete?</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sales.map((sale, i) => {
+              const salespersonName = `${sale.salesperson.first_name} ${sale.salesperson.last_name}`;
+              const customerName = `${sale.customer.first_name} ${sale.customer.last_name}`;
+              return (
+                <tr key={i}>
+                  <td>{sale.salesperson.employee_id}</td>
+                  <td>{salespersonName}</td>
+                  <td>{customerName}</td>
+                  <td>{sale.automobile.vin}</td>
+                  <td>{priceFormatter.format(sale.price)}</td>
+                  <td>
+                    <button
+                      className="btn btn-outline-dark"
+                      onClick={() => handleDelete(sale.id, sale.automobile.vin)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </>
   );

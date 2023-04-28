@@ -13,11 +13,9 @@ function AutomobileFormEdit(props) {
     e.preventDefault();
 
     const updateUrl = `http://localhost:8100/api/automobiles/${props.automobile.vin}/`;
-
     const updateData = {
       color: updatedForm.color,
       year: updatedForm.year,
-      sold: updatedForm.sold,
     };
 
     const updateFetchConfig = {
@@ -29,7 +27,6 @@ function AutomobileFormEdit(props) {
     };
 
     const updatedResponse = await fetch(updateUrl, updateFetchConfig);
-
     if (updatedResponse.ok) {
       navigate(0);
     }
@@ -45,16 +42,6 @@ function AutomobileFormEdit(props) {
     });
   };
 
-  const handleCheckboxChange = (e) => {
-    const inputName = e.target.name;
-
-    setUpdatedForm({
-      ...updatedForm,
-      [inputName]: !updatedForm.sold,
-    });
-  };
-
-  console.log(props.automobile.model.manufacturer.name);
   return (
     <div className="p-3" data-bs-focus={true}>
       <div className="d-flex justify-content-between">
@@ -104,11 +91,11 @@ function AutomobileFormEdit(props) {
         <div className="mb-3 form-check">
           <label className="form-check-label">Sold</label>
           <input
-            onChange={handleCheckboxChange}
             className="form-check-input"
             name="sold"
             type="checkbox"
             id="updateSold"
+            disabled={true}
             checked={updatedForm.sold}
           />
         </div>

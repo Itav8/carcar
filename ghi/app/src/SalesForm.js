@@ -1,23 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Alert(props) {
-  return (
-    <div id="priceAlert">
-      <div class="alert alert-danger alert-dismissible" role="alert">
-        <div>Problem with form, try again.</div>
-        <button
-          onClick={props.onClose}
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-        ></button>
-      </div>
-    </div>
-  );
-}
-
 function SalesForm() {
   const navigate = useNavigate();
   const [vins, setVins] = useState([]);
@@ -29,7 +12,6 @@ function SalesForm() {
     customer: "",
     price: null,
   });
-  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const fetchVinData = async () => {
@@ -98,36 +80,35 @@ function SalesForm() {
       },
     };
 
-    setShowAlert(true);
+    try {
+      const automobileResponse = await fetch(updateUrl, autoFetchConfig);
+      const salesResponse = await fetch(url, fetchConfig);
 
-    // try {
-    //   const automobileResponse = await fetch(updateUrl, autoFetchConfig);
-    //   const salesResponse = await fetch(url, fetchConfig);
+      if (salesResponse.ok && automobileResponse.ok) {
+        setFormData({
+          automobileVin: "",
+          salesperson: "",
+          customer: "",
+          price: "",
+        });
 
-    //   if (salesResponse.ok && automobileResponse.ok) {
-    //     setFormData({
-    //       automobileVin: "",
-    //       salesperson: "",
-    //       customer: "",
-    //       price: "",
-    //     });
+        return navigate("/sales");
+      }
+      else {
+        const formAlert = document.getElementById("priceAlert");
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = [
+          `<div className="alert alert-danger alert-dismissible" role="alert">`,
+          `   <div>Problem with form, try again.</div>`,
+          '   <button type="button" classNm="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+          "</div>",
+        ].join("");
 
-    //     return navigate("/sales");
-    //   } else {
-    //     const formAlert = document.getElementById("priceAlert");
-    //     const wrapper = document.createElement("div");
-    //     wrapper.innerHTML = [
-    //       `<div class="alert alert-danger alert-dismissible" role="alert">`,
-    //       `   <div>Problem with form, try again.</div>`,
-    //       '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-    //       "</div>",
-    //     ].join("");
-
-    //     formAlert.append(wrapper);
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
+        formAlert.append(wrapper);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleFormChange = (e) => {
@@ -140,14 +121,8 @@ function SalesForm() {
     });
   };
 
-  let alertElement = null;
-  if (showAlert) {
-    alertElement = <Alert onClose={() => setShowAlert(false)} />;
-  }
-
   return (
     <div className="row">
-      {alertElement}
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Record a new sale</h1>
