@@ -67,7 +67,6 @@ const AppointmentList = () => {
     }
     if (automobileVOsResponse.ok) {
       const data = await automobileVOsResponse.json();
-      console.log(data);
 
       const newVins = [];
       for (let car of data) {
