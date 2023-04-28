@@ -82,7 +82,7 @@ function VehicleModelList() {
                     >
                       Edit
                     </button>
-                    <Modal id={`vehicleModal-${i}`} title="Edit Automobile">
+                    <Modal id={`vehicleModal-${i}`} title="Edit Model">
                       <VehicleModelFormEdit model={model} />
                     </Modal>
                   </td>

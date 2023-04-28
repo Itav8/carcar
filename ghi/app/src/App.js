@@ -41,15 +41,15 @@ function App() {
           </Route>
           <Route path="/salespeople">
             <Route index element={<SalespeopleList />} />
-            <Route path="create" element={<SalespersonForm />} />
+            <Route path="new" element={<SalespersonForm />} />
           </Route>
           <Route path="/customer">
             <Route index element={<CustomerList />} />
-            <Route path="create" element={<CustomerForm />} />
+            <Route path="new" element={<CustomerForm />} />
           </Route>
           <Route path="/sales">
             <Route index element={<SalesList />} />
-            <Route path="create" element={<SalesForm />} />
+            <Route path="new" element={<SalesForm />} />
             <Route path="history" element={<SalespersonHistory />} />
           </Route>
           <Route path="/services" element={<AppointmentList />} />
@@ -61,7 +61,7 @@ function App() {
           </Route>
           <Route path="/models">
             <Route index element={<VehicleModelList />} />
-            <Route path="create" element={<VehicleModelForm />} />
+            <Route path="new" element={<VehicleModelForm />} />
           </Route>
         </Routes>
       </div>

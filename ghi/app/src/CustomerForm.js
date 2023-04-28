@@ -113,7 +113,7 @@ function CustomerForm() {
               />
               <label htmlFor="phoneNumber">Phone number...</label>
             </div>
-            <button className="btn btn-primary">Create</button>
+            <button className="btn btn-outline-success">Create</button>
           </form>
         </div>
       </div>

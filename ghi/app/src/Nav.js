@@ -44,7 +44,7 @@ function Nav() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/models/create">
+                  <NavLink className="nav-link" to="/models/new">
                     Create a Model
                   </NavLink>
                 </li>
@@ -79,7 +79,7 @@ function Nav() {
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li className="nav-item col">
-                  <NavLink className="nav-link" to="/salespeople/create">
+                  <NavLink className="nav-link" to="/salespeople/new">
                     Add a Salesperson
                   </NavLink>
                 </li>
@@ -89,7 +89,7 @@ function Nav() {
                   </NavLink>
                 </li>
                 <li className="nav-item col">
-                  <NavLink className="nav-link" to="/customer/create">
+                  <NavLink className="nav-link" to="/customer/new">
                     Add a Customer
                   </NavLink>
                 </li>
@@ -99,7 +99,7 @@ function Nav() {
                   </NavLink>
                 </li>
                 <li className="nav-item col">
-                  <NavLink className="nav-link" to="/sales/create">
+                  <NavLink className="nav-link" to="/sales/new">
                     Add a Sale
                   </NavLink>
                 </li>

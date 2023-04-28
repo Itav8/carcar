@@ -65,7 +65,7 @@ const ManufacturerForm = () => {
                 />
                 <label htmlFor="name">Name...</label>
               </div>
-              <button className="btn btn-lg btn-primary">Create!</button>
+              <button className="btn btn-md btn-outline-success">Create!</button>
             </form>
           </div>
         </div>
