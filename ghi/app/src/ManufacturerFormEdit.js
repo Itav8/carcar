@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
-function VehicleModelFormEdit(props) {
+function ManufacturerFormEdit(props) {
   const navigate = useNavigate();
   const [updatedForm, setUpdatedForm] = useState({
-    name: props.model.name,
-    pictureUrl: props.model.picture_url,
+    name: props.manufacturer.name,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updateUrl = `http://localhost:8100/api/models/${props.model.id}/`;
+    const updateUrl = `http://localhost:8100/api/manufacturers/${props.manufacturer.id}/`;
     const updateData = {
       name: updatedForm.name,
-      picture_url: updatedForm.pictureUrl,
     };
 
-    const updatedFetchConfig = {
+    const updateFetchConfig = {
       method: "put",
       body: JSON.stringify(updateData),
       headers: {
@@ -25,7 +23,7 @@ function VehicleModelFormEdit(props) {
       },
     };
 
-    const updatedResponse = await fetch(updateUrl, updatedFetchConfig);
+    const updatedResponse = await fetch(updateUrl, updateFetchConfig);
     if (updatedResponse.ok) {
       navigate(0);
     }
@@ -43,14 +41,6 @@ function VehicleModelFormEdit(props) {
 
   return (
     <div className="p-3" data-bs-focus={true}>
-      <div className="d-flex justify-content-between">
-        <p>
-          {" "}
-          <strong>Manufacturer:</strong>
-          {props.model.manufacturer.name}
-        </p>
-      </div>
-
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="updatedForm" className="form-label">
@@ -61,27 +51,14 @@ function VehicleModelFormEdit(props) {
             type="text"
             name="name"
             className="form-control"
-            id="updatedName"
+            id="updateName"
             value={updatedForm.name}
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="updatedForm2" className="form-label">
-            <strong>Picture:</strong>
-          </label>
-          <input
-            onChange={handleFormChange}
-            type="text"
-            name="pictureUrl"
-            className="form-control"
-            id="updatedPictureUrl"
-            value={updatedForm.pictureUrl}
-          />
-        </div>
-        <button className="btn btn-outline-success">Update</button>
+        <button className="btn btn-primary">Update</button>
       </form>
     </div>
   );
 }
 
-export default VehicleModelFormEdit;
+export default ManufacturerFormEdit;

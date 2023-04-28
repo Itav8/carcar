@@ -1,65 +1,63 @@
-import { React, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Alert from './Alert';
+import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
 const TechnicianForm = () => {
-    const navigate = useNavigate();
-    const [firstName, setFirstName] = useState([]);
-    const [lastName, setLastName] = useState([]);
-    const [employeeID, setEmployeeID] = useState([]);
-    const [alert, setAlert] = useState(false);
-    const [alertMessage, setAlertMessage] = useState("");
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState([]);
+  const [lastName, setLastName] = useState([]);
+  const [employeeID, setEmployeeID] = useState([]);
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
-    const handleFirstNameChange = (event) => {
-        const value = event.target.value;
-        setFirstName(value);
-    }
-    const handleLastNameChange = (event) => {
-        const value = event.target.value;
-        setLastName(value);
-    }
-    const handleEmployeeIDChange = (event) => {
-        const value = event.target.value;
-        setEmployeeID(value);
-    }
+  const handleFirstNameChange = (event) => {
+    const value = event.target.value;
+    setFirstName(value);
+  };
+  const handleLastNameChange = (event) => {
+    const value = event.target.value;
+    setLastName(value);
+  };
+  const handleEmployeeIDChange = (event) => {
+    const value = event.target.value;
+    setEmployeeID(value);
+  };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        const data = {};
-        data.first_name = firstName;
-        data.last_name = lastName;
-        data.employee_id = employeeID;
+    const data = {};
+    data.first_name = firstName;
+    data.last_name = lastName;
+    data.employee_id = employeeID;
 
-        const technicianURL = "http://localhost:8080/api/technicians/";
-        const fetchConfig = {
-            method: "post",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
+    const technicianURL = "http://localhost:8080/api/technicians/";
+    const fetchConfig = {
+      method: "post",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-        try {
-        const response = await fetch(technicianURL, fetchConfig);
-        if (response.ok) {
-            const newTechnician = await response.json();
+    try {
+      const response = await fetch(technicianURL, fetchConfig);
+      if (response.ok) {
+        const newTechnician = await response.json();
 
-            setFirstName('');
-            setLastName('');
-            setEmployeeID('');
-            navigate("/technicians");
-        } else {
-            setAlert(true);
-            setAlertMessage("Duplicate Employee ID!");
-        }
-    } catch(error) {
+        setFirstName("");
+        setLastName("");
+        setEmployeeID("");
+        navigate("/technicians");
+      } else {
         setAlert(true);
-        setAlertMessage("Problem with request, try again later.");
+        setAlertMessage("Duplicate Employee ID!");
+      }
+    } catch (error) {
+      setAlert(true);
+      setAlertMessage("Problem with request, try again later.");
     }
-    }
-
-
+  };
 
   return (
     <div className="container">
@@ -107,7 +105,7 @@ const TechnicianForm = () => {
                 />
                 <label htmlFor="employeeID">EmployeeID...</label>
               </div>
-              <button className="btn btn-outline-success">Create!</button>
+              <button className="btn btn-lg btn-primary">Create!</button>
             </form>
           </div>
         </div>
@@ -117,6 +115,6 @@ const TechnicianForm = () => {
       </Alert>
     </div>
   );
-}
+};
 
-export default TechnicianForm
+export default TechnicianForm;

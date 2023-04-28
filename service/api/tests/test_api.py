@@ -53,9 +53,6 @@ class Tests(TransactionTestCase):
 
     def test_appointment_create(self):
         tech = Technician.objects.create(first_name="first", last_name="last", employee_id=1)
-        # Status.objects.create(name="created")
-        # Status.objects.create(name="canceled")
-        # Status.objects.create(name="finished")
 
         client = Client()
         body = {
@@ -86,9 +83,6 @@ class Tests(TransactionTestCase):
 
     def test_appointment_cancel(self):
         tech = Technician.objects.create(first_name="first", last_name="last", employee_id=1)
-        # Status.objects.create(name="created")
-        # Status.objects.create(name="canceled")
-        # Status.objects.create(name="finished")
         appointment = Appointment.objects.create(date_time="2023-04-20T14:39:00.000Z", reason="reason code 1", vin="2222", customer="Warren Longmire", technician=tech)
 
         client = Client()
