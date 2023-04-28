@@ -3,8 +3,8 @@ import React from "react";
 const Alert = (props) => {
   if (props.alert) {
     return (
-      <div className="justify-content-center">
-        <div className="row-cols-2 text-center">
+      <div className="row">
+        <div className="offset-2 col-8">
           <div className="alert alert-danger alert-dismissible" role="alert">
             <div>{props.message}</div>
             <button

@@ -69,10 +69,10 @@ const ManufacturerForm = () => {
             </form>
           </div>
         </div>
-        <Alert alert={alert} message={alertMessage}>
-          <></>
-        </Alert>
       </div>
+      <Alert alert={alert} message={alertMessage}>
+        <></>
+      </Alert>
     </div>
   );
 };
