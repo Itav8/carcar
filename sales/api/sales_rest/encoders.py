@@ -19,7 +19,6 @@ class CustomerEncoder(ModelEncoder):
     properties = ["id", "first_name", "last_name", "address", "phone_number"]
 
 
-# decimal encoding https://stackoverflow.com/questions/52319562/django-object-of-type-decimal-is-not-json-serializable-and-convert-to-model-da
 class PriceEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Decimal):
