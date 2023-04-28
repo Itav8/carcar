@@ -177,7 +177,7 @@ function SalesForm() {
                 })}
               </select>
             </div>
-            <div id="priceAlert" className="form-floating mb-3">
+            <div className="form-floating mb-3">
               <input
                 onChange={handleFormChange}
                 placeholder="price"
