@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
-function AutomobileFormEdit(props) {
+function VehicleModelFormEdit(props) {
   const navigate = useNavigate();
   const [updatedForm, setUpdatedForm] = useState({
-    color: props.automobile.color,
-    year: props.automobile.year,
-    sold: props.automobile.sold,
+    name: props.model.name,
+    pictureUrl: props.model.picture_url,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updateUrl = `http://localhost:8100/api/automobiles/${props.automobile.vin}/`;
+    const updateUrl = `http://localhost:8100/api/models/${props.model.id}/`;
     const updateData = {
-      color: updatedForm.color,
-      year: updatedForm.year,
+      name: updatedForm.name,
+      picture_url: updatedForm.pictureUrl,
     };
 
-    const updateFetchConfig = {
+    const updatedFetchConfig = {
       method: "put",
       body: JSON.stringify(updateData),
       headers: {
@@ -26,7 +25,7 @@ function AutomobileFormEdit(props) {
       },
     };
 
-    const updatedResponse = await fetch(updateUrl, updateFetchConfig);
+    const updatedResponse = await fetch(updateUrl, updatedFetchConfig);
     if (updatedResponse.ok) {
       navigate(0);
     }
@@ -41,62 +40,42 @@ function AutomobileFormEdit(props) {
       [inputName]: value,
     });
   };
-
+  console.log(props.model.name, props.model.id);
   return (
     <div className="p-3" data-bs-focus={true}>
       <div className="d-flex justify-content-between">
         <p>
-          <strong>VIN:</strong>
-          {props.automobile.vin}
-        </p>
-        <p>
-          {" "}
-          <strong>Model:</strong>
-          {props.automobile.model.name}{" "}
-        </p>
-        <p>
           {" "}
           <strong>Manufacturer:</strong>
-          {props.automobile.model.manufacturer.name}
+          {props.model.manufacturer.name}
         </p>
       </div>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="updatedForm" className="form-label">
-            <strong>Color:</strong>
+            <strong>Name:</strong>
           </label>
           <input
             onChange={handleFormChange}
             type="text"
-            name="color"
+            name="name"
             className="form-control"
-            id="updateColor"
-            value={updatedForm.color}
+            id="updatedName"
+            value={updatedForm.name}
           />
         </div>
         <div className="mb-3">
           <label htmlFor="updatedForm2" className="form-label">
-            <strong>Year:</strong>
+            <strong>Picture:</strong>
           </label>
           <input
             onChange={handleFormChange}
             type="text"
-            name="year"
+            name="pictureUrl"
             className="form-control"
-            id="updateYear"
-            value={updatedForm.year}
-          />
-        </div>
-        <div className="mb-3 form-check">
-          <label className="form-check-label">Sold</label>
-          <input
-            className="form-check-input"
-            name="sold"
-            type="checkbox"
-            id="updateSold"
-            disabled={true}
-            checked={updatedForm.sold}
+            id="updatedPictureUrl"
+            value={updatedForm.pictureUrl}
           />
         </div>
         <button className="btn btn-outline-success">Update</button>
@@ -105,4 +84,4 @@ function AutomobileFormEdit(props) {
   );
 }
 
-export default AutomobileFormEdit;
+export default VehicleModelFormEdit;
