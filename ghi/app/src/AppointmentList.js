@@ -58,7 +58,6 @@ const AppointmentList = () => {
         }
         if(automobileVOsResponse.ok) {
             const data = await automobileVOsResponse.json();
-            console.log(data);
 
             const newVins = [];
             for (let car of data) {
@@ -77,69 +76,69 @@ const AppointmentList = () => {
 
     return (
         <>
-        <h1>Service Appointments</h1>
-        <Alert
-            alert={alert}
-            message={alertMessage}
-        >
-            <></>
-        </Alert>
-    <div className="table-responsive">
-        <table className='table table-striped table-bordered table-hover'>
-            <thead className="tableAlert">
-                <tr>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>VIN</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Is VIP?</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Customer</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Date</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Time</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Technician</th>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Reason</th>
-                    <th className="align-middle text-center">Cancel/Finish</th>
-                </tr>
-            </thead>
-            <tbody>
-                {appointments.map(appointment => {
-                    return (
-                        <tr
-                            key={appointment.id}
-                            data-bs-toggle="modal"
-                            data-bs-target="#appointmentModal"
-                            role="button"
-                        >
-                            <td className="align-middle fw-bold px-3" style={{fontSize: '1rem'}}>{ appointment.vin }</td>
-                            <td className="align-middle px-3"
-                                style={{fontSize: '1rem', color: (vins.indexOf(appointment.vin) > -1) ? 'green' : 'black'}}
-                            >
-                                { (vins.indexOf(appointment.vin) > -1) && `YES` }
-                                { !(vins.indexOf(appointment.vin) > -1) && `No` }
-                                </td>
-                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.customer }</td>
-                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleDateString()}</td>
-                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
-                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.technician }</td>
-                            <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.reason }</td>
-                            <td className="align-middle px-3 text-center">
-                                <button className="btn btn-outline-danger" role="button" onClick={() => handleCancel(appointment.id)}>
-                                    Cancel
-                                </button>
-                                <button className="btn btn-outline-success" role="button" onClick={() => handleFinish(appointment.id)}>
-                                    Finish
-                                </button>
-                            </td>
+            <h1>Service Appointments</h1>
+            <Alert
+                alert={alert}
+                message={alertMessage}
+            >
+                <></>
+            </Alert>
+            <div className="table-responsive">
+                <table className='table table-striped table-bordered table-hover'>
+                    <thead className="tableAlert">
+                        <tr>
+                            <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>VIN</th>
+                            <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Is VIP?</th>
+                            <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Customer</th>
+                            <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Date</th>
+                            <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Time</th>
+                            <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Technician</th>
+                            <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Reason</th>
+                            <th className="align-middle text-center">Cancel/Finish</th>
                         </tr>
-                    )
-                })}
-            </tbody>
-        </table>
-      <Modal
-        id="appointmentModal"
-        title="Edit Appointment"
-      >
-        <p></p>
-      </Modal>
-    </div>
-    </>
+                    </thead>
+                    <tbody>
+                        {appointments.map(appointment => {
+                            return (
+                                <tr
+                                    key={appointment.id}
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#appointmentModal"
+                                    role="button"
+                                >
+                                    <td className="align-middle fw-bold px-3" style={{fontSize: '1rem'}}>{ appointment.vin }</td>
+                                    <td className="align-middle px-3"
+                                        style={{fontSize: '1rem', color: (vins.indexOf(appointment.vin) > -1) ? 'green' : 'black'}}
+                                    >
+                                        { (vins.indexOf(appointment.vin) > -1) && `YES` }
+                                        { !(vins.indexOf(appointment.vin) > -1) && `No` }
+                                    </td>
+                                    <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.customer }</td>
+                                    <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleDateString()}</td>
+                                    <td className="align-middle px-3" style={{fontSize: '1rem'}}>{new Date(appointment.date_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                                    <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.technician }</td>
+                                    <td className="align-middle px-3" style={{fontSize: '1rem'}}>{ appointment.reason }</td>
+                                    <td className="align-middle px-3 text-center">
+                                        <button className="btn btn-outline-danger" role="button" onClick={() => handleCancel(appointment.id)}>
+                                            Cancel
+                                        </button>
+                                        <button className="btn btn-outline-success" role="button" onClick={() => handleFinish(appointment.id)}>
+                                            Finish
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            <Modal
+                id="appointmentModal"
+                title="Edit Appointment"
+            >
+                <p></p>
+            </Modal>
+            </div>
+        </>
     );
 }
 

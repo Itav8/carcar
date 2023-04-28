@@ -2,69 +2,18 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
 
-from common.json import ModelEncoder
+from .encoders import (
+    TechnicianListEncoder,
+    AppointmentListEncoder,
+    AppointmentDetailEncoder,
+)
 from .models import Technician, AutomobileVO, Appointment, Status
-# Create your views here.
 
-
-class TechnicianListEncoder(ModelEncoder):
-    model = Technician
-    properties = [
-        "id",
-        "employee_id",
-        "first_name",
-        "last_name",
-    ]
-
-
-class AppointmentListEncoder(ModelEncoder):
-    model = Appointment
-    properties = [
-        "date_time",
-        "id",
-        "reason",
-        "vin",
-        "customer",
-    ]
-
-    def get_extra_data(self, o):
-        return {"status": o.status.name,
-                "technician": f'{o.technician.first_name} {o.technician.last_name}',
-                }
-
-
-class AppointmentDetailEncoder(ModelEncoder):
-    model = Appointment
-    properties = [
-        "date_time",
-        "id",
-        "reason",
-        "vin",
-        "customer",
-    ]
-    def get_extra_data(self, o):
-        return {"status": o.status.name,
-                "technician": f'{o.technician.first_name} {o.technician.last_name}',
-                }
 
 @require_http_methods(["GET", "POST"])
 def list_technicians(request):
     if request.method == "GET":
         technicians = Technician.objects.all()
-        # data = []
-        # for technician in technicians:
-        #     id = technician.id
-        #     employee_id = technician.employee_id
-        #     first_name = technician.first_name
-        #     last_name = technician.last_name
-        #     data.append(
-        #         {
-        #             'id': id,
-        #             'employee_id': employee_id,
-        #             'first_name': first_name,
-        #             'last_name': last_name,
-        #         }
-        #     )
         return JsonResponse(
             {"technicians": technicians},
             encoder=TechnicianListEncoder,
@@ -84,6 +33,7 @@ def list_technicians(request):
             )
             response.status_code = 400
             return response
+
 
 @require_http_methods(["DELETE"])
 def delete_technician(request, employee_id):
@@ -136,7 +86,7 @@ def list_appointments(request):
             encoder=AppointmentListEncoder,
             safe=False,
         )
-    else:       # POST - CREATE APPOINTMENT
+    else:
         content = json.loads(request.body)
 
         try:
@@ -147,8 +97,6 @@ def list_appointments(request):
                 {"message": "Invalid technician"},
                 status=400,
             )
-        # status = Status.objects.get(name="Created")       # STATUS DEFAULT PK=1 IN MODEL
-        # content["status"] = status
         Appointment.objects.create(**content)
         appointments = Appointment.objects.all()
         return JsonResponse(
@@ -185,7 +133,6 @@ def cancel_appointment(request, pk):
             {"message": "Invalid appointment"},
             status=400,
         )
-    # appointments = Appointment.objects.all()
     return JsonResponse(
         {"appointment": appointment},
         encoder=AppointmentDetailEncoder,
@@ -203,7 +150,6 @@ def finish_appointment(request, pk):
             {"message": "Invalid appointment"},
             status=400,
         )
-    # appointments = Appointment.objects.all()
     return JsonResponse(
         {"appointment": appointment},
         encoder=AppointmentDetailEncoder,

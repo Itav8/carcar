@@ -11,7 +11,6 @@ function ManufacturerFormEdit(props) {
     e.preventDefault();
 
     const updateUrl = `http://localhost:8100/api/manufacturers/${props.manufacturer.id}/`;
-    console.log(updateUrl);
     const updateData = {
       name: updatedForm.name,
     };

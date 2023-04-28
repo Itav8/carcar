@@ -50,39 +50,36 @@ const ServiceForm = () => {
         data.technician = technician;
         data.reason = reason;
 
-        console.log(data);
-
         const appointmentsUrl = 'http://localhost:8080/api/appointments/';
         const fetchConfig = {
-          method: "post",
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+            method: "post",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         };
 
         try {
-        const response = await fetch(appointmentsUrl, fetchConfig);
-        if (response.ok) {
-            const newAppointment = await response.json();
-            console.log(newAppointment);
+            const response = await fetch(appointmentsUrl, fetchConfig);
+            if (response.ok) {
+                const newAppointment = await response.json();
 
-            setVin('');
-            setCustomer('');
-            setDate('');
-            setTime('');
-            setTechnician('');
-            setReason('');
+                setVin('');
+                setCustomer('');
+                setDate('');
+                setTime('');
+                setTechnician('');
+                setReason('');
 
-            navigate("/services");
-        } else {
+                navigate("/services");
+            } else {
+                setAlert(true);
+                setAlertMessage("Duplicate Manufacturer!");
+            }
+        } catch(error) {
             setAlert(true);
-            setAlertMessage("Duplicate Manufacturer!");
+            setAlertMessage("Problem with request, try again later.");
         }
-    } catch(error) {
-        setAlert(true);
-        setAlertMessage("Problem with request, try again later.");
-    }
     }
 
     const fetchData = async () => {
@@ -104,46 +101,46 @@ const ServiceForm = () => {
   return (
     <div className="container">
         <div className="row">
-        <div className="offset-3 col-6">
-            <div className="shadow p-4 mt-4">
-            <h1 id="appointmentAlert">Create a Service Appointment</h1>
-            <form onSubmit={handleSubmit} id="create-appointment-form">
-                <div className="form-floating mb-3">
-                <input value={vin} onChange={handleVinChange} placeholder="Vin" required name="vin" type="text" id="vin" className="form-control" />
-                <label htmlFor="vin">VIN</label>
+            <div className="offset-3 col-6">
+                <div className="shadow p-4 mt-4">
+                    <h1 id="appointmentAlert">Create a Service Appointment</h1>
+                    <form onSubmit={handleSubmit} id="create-appointment-form">
+                        <div className="form-floating mb-3">
+                            <input value={vin} onChange={handleVinChange} placeholder="Vin" required name="vin" type="text" id="vin" className="form-control" />
+                            <label htmlFor="vin">VIN</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input value={customer} onChange={handleCustomerChange} placeholder="Customer" required name="customer" type="text" id="customer" className="form-control" />
+                            <label htmlFor="customer">Customer</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input value={date} onChange={handleDateChange} placeholder="Date" required name="date" type="date" id="date" className="form-control" />
+                            <label htmlFor="date">Date</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input value={time} onChange={handleTimeChange} placeholder="Time" required name="time" type="time" id="time" className="form-control"></input>
+                            <label htmlFor="time">Time</label>
+                        </div>
+                        <div className="mb-3">
+                            <select onChange={handleTechnicianChange} required name="technician" id="technician" className="form-select">
+                                <option value=''>Choose a Technician</option>
+                                {technicians.map(technician => {
+                                return (
+                                <option key={technician.employee_id} value={technician.employee_id}>
+                                    {technician.first_name} {technician.last_name}
+                                </option>
+                                );
+                            })}
+                            </select>
+                        </div>
+                        <div id="reasonAlert" className="form-floating mb-3">
+                            <input value={reason} onChange={handleReasonChange} placeholder="Reason" required name="reason" type="text" id="reason" className="form-control" />
+                            <label htmlFor="reason">Reason</label>
+                        </div>
+                        <button className="btn btn-primary">Create</button>
+                    </form>
                 </div>
-                <div className="form-floating mb-3">
-                <input value={customer} onChange={handleCustomerChange} placeholder="Customer" required name="customer" type="text" id="customer" className="form-control" />
-                <label htmlFor="customer">Customer</label>
-                </div>
-                <div className="form-floating mb-3">
-                <input value={date} onChange={handleDateChange} placeholder="Date" required name="date" type="date" id="date" className="form-control" />
-                <label htmlFor="date">Date</label>
-                </div>
-                <div className="form-floating mb-3">
-                <input value={time} onChange={handleTimeChange} placeholder="Time" required name="time" type="time" id="time" className="form-control"></input>
-                <label htmlFor="time">Time</label>
-                </div>
-                <div className="mb-3">
-                <select onChange={handleTechnicianChange} required name="technician" id="technician" className="form-select">
-                    <option value=''>Choose a Technician</option>
-                    {technicians.map(technician => {
-                    return (
-                    <option key={technician.employee_id} value={technician.employee_id}>
-                        {technician.first_name} {technician.last_name}
-                    </option>
-                    );
-                })}
-                </select>
-                </div>
-                <div id="reasonAlert" className="form-floating mb-3">
-                <input value={reason} onChange={handleReasonChange} placeholder="Reason" required name="reason" type="text" id="reason" className="form-control" />
-                <label htmlFor="reason">Reason</label>
-                </div>
-                <button className="btn btn-primary">Create</button>
-            </form>
             </div>
-        </div>
         </div>
         <Alert
             alert={alert}

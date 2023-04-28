@@ -13,23 +13,9 @@ I have 3 Models:
     Technician
     - first_name: CharField
     - last_name: CharField
-    - employee_id: CharField
+    - employee_id: CharField (UNIQUE)
     AutomobileVO
-    - href: CharField
-    - id: PositiveSmallInteger   DON'T PUT IN MODEL; DJANGO-AUTOMATIC!
-    - color: CharField
-    - year: PositiveSmallInteger
-    - vin: CharField
-    - model
-        - href: CharField
-        - id: PositiveSmallInteger
-        - name: CharField
-        - picture_url: UrlField
-        - manufacturer
-            - href: CharField
-            - id: PositiveSmallInteger
-            - name: CharField
-    - sold: BooleanField
+    - just the VIN: UNIQUE
     Appointment
     - date_time: DateTime   (SEPARATE DATE/TIME SELECTORS IN CREATE_APP_FORM??)
     - reason: CharField     (TEXTFIELD??)

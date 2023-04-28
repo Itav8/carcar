@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class Technician(models.Model):
@@ -26,15 +25,15 @@ class Status(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "statuses"  # Fix the pluralization
+        verbose_name_plural = "statuses"
 
 
 class Appointment(models.Model):
-    date_time = models.DateTimeField()    # auto_now=False, auto_now_add=False
+    date_time = models.DateTimeField()
     reason = models.CharField(max_length=200)
     status = models.ForeignKey(
         Status,
-        related_name="+",  # do not create a related name on State
+        related_name="+",
         on_delete=models.PROTECT,
         default=1,
     )

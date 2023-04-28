@@ -39,8 +39,6 @@ const AutomobileForm = () => {
         data.model_id = model;
         data.year = year;
 
-        console.log(data);
-
         const automobilesUrl = 'http://localhost:8100/api/automobiles/';
         const fetchConfig = {
           method: "post",
@@ -54,7 +52,6 @@ const AutomobileForm = () => {
         const response = await fetch(automobilesUrl, fetchConfig);
         if (response.ok) {
             const newAutomobile = await response.json();
-            console.log(newAutomobile);
 
             setVin('');
             setColor('');
