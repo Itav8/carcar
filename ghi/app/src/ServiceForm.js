@@ -42,7 +42,7 @@ const ServiceForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const data = {};
 
     data.vin = vin;
@@ -50,8 +50,6 @@ const ServiceForm = () => {
     data.date_time = `${date}T${time}`;
     data.technician = technician;
     data.reason = reason;
-
-    console.log(data);
 
     const appointmentsUrl = "http://localhost:8080/api/appointments/";
     const fetchConfig = {

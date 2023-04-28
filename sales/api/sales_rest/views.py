@@ -71,7 +71,6 @@ def list_sales(request):
             automobile = AutomobileVO.objects.get(vin=content["automobile"])
             salesperson = Salesperson.objects.get(employee_id=content["salesperson"])
             customer = Customer.objects.get(id=content["customer"])
-        # https://rollbar.com/blog/python-catching-multiple-exceptions/
         except (
             AutomobileVO.DoesNotExist,
             Salesperson.DoesNotExist,
