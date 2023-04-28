@@ -66,6 +66,7 @@ const ManufacturerList = () => {
               >
                 Name
               </th>
+              <th className="align-middle text-center">Edit</th>
               <th className="align-middle text-center">Delete?</th>
             </tr>
           </thead>
@@ -79,7 +80,7 @@ const ManufacturerList = () => {
                   >
                     {manufacturer.name}
                   </td>
-                  <td>
+                  <td className="align-middle px-3 text-center">
                     <button
                       className="btn btn-outline-dark"
                       data-bs-toggle="modal"
