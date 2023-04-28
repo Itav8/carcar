@@ -1,5 +1,7 @@
 import { React, useState, useEffect } from 'react'
 import Alert from './Alert';
+import Modal from './Modal';
+import ManufacturerFormEdit from './ManufacturerFormEdit';
 
 const ManufacturerList = () => {
     const API_URL = "http://localhost:8100/api/manufacturers"
@@ -61,6 +63,7 @@ const ManufacturerList = () => {
             <thead>
                 <tr>
                     <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Name</th>
+                    <th className="align-middle text-center">Edit</th>
                     <th className="align-middle text-center">Delete?</th>
                 </tr>
             </thead>
@@ -69,13 +72,25 @@ const ManufacturerList = () => {
                     return (
                         <tr key={manufacturer.id}>
                             <td className="align-middle fw-normal px-3" style={{fontSize: '1.2rem'}}>{ manufacturer.name }</td>
+                            <td>
+                                <button
+                                className="btn btn-outline-dark"
+                                data-bs-toggle="modal"
+                                data-bs-target={`#manufacturerModal-${manufacturer.id}`}
+                                >
+                                Edit
+                                </button>
+                            </td>
                             <td className="align-middle px-3 text-center">
                                 <button className="btn btn-outline-dark" role="button" onClick={() => handleDelete(manufacturer.id)}>
                                     Delete
                                 </button>
                             </td>
+                  <Modal id={`manufacturerModal-${manufacturer.id}`} title="Edit Manufacturer">
+                    <ManufacturerFormEdit manufacturer={manufacturer} />
+                  </Modal>
                         </tr>
-                    )
+                    );
                 })}
             </tbody>
         </table>
