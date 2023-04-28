@@ -7,11 +7,28 @@ Team:
 
 ## Design
 
-Inventory Microserice - Contains `Manufacturer`, `VehicleModel`, `Automobile` models that are necessary for the app business domain - The `Sales` and `Services` microservives polls the VIN data from the `Automobile Model` to their each own microservive. - User friendly forms for adding and managing vehicle and automobile models. - Vehicle Model form includes model name, picture URL, and manufacturer name selection. - Automobile Model form includes color, year, VIN, and model name selection. - Ability to edit or delete specific items
+Inventory Microserice
 
-Service Microservice - Can create New Technician or Service (selecting from available Technicians) - Can list all appointments which have not been canceled or finished - Can also list a history of all appointments and search by VIN - Time entry for New Service must be within business hours (9am-6pm) - all forms throw alerts if bad data (duplicate employee ID, etc.)
+- Contains `Manufacturer`, `VehicleModel`, `Automobile` models that are necessary for the app business domain
+- The `Sales` and `Services` microservives polls the VIN data from the `Automobile Model` to their each own microservive.
+- User friendly forms for adding and managing vehicle and automobile models.
+- Vehicle Model form includes model name, picture URL, and manufacturer name selection.
+- Automobile Model form includes color, year, VIN, and model name selection. - Ability to edit or delete specific items
 
-Sales Microservice - Components for adding sales employees, customers, and sales data. - Ability to view all data and delete specific data - Automobile data polled from Inventory Microservice - Models include AutomobileVO with uniquie `VIN`, `Salesperson` with unique employee ID, `Customer`, and `Sale` with price and foreign key relationships to `A`utomobileVO`, `Salesperson`, and `Customer` models.
+Service Microservice
+
+- Can create New Technician or Service (selecting from available Technicians)
+- Can list all appointments which have not been canceled or finished
+- Can also list a history of all appointments and search by VIN
+- Time entry for New Service must be within business hours (9am-6pm)
+- all forms throw alerts if bad data (duplicate employee ID, etc.)
+
+Sales Microservice
+
+- Components for adding sales employees, customers, and sales data.
+- Ability to view all data and delete specific data
+- Automobile data polled from Inventory Microservice
+- Models include AutomobileVO with uniquie `VIN`, `Salesperson` with unique employee ID, `Customer`, and `Sale` with price and foreign key relationships to `A`utomobileVO`, `Salesperson`, and `Customer` models.
 
 The CarCar app is designed to help car dealerships manage inventory and sales process efficiently. Forms and components make it easy for users to add, manage, and delete models, sales, employees, customers, and sales data.
 
@@ -20,9 +37,15 @@ The CarCar app is designed to help car dealerships manage inventory and sales pr
 I have 3 Models:
 Technician - first_name: CharField - last_name: CharField - employee_id: CharField (UNIQUE)
 AutomobileVO - just the VIN: UNIQUE
-Appointment - date_time: DateTime (SEPARATE DATE/TIME SELECTORS IN CREATE_APP_FORM??) - reason: CharField (TEXTFIELD??) - status: ForeignKey(status, related_name="appointments", on_delete=PROTECT) - created/canceled/finished
-SERVICE_APPOINTMENTS_LIST SHOWS ONLE 'CREATED' APPS, SERVICE_HISTORY_LIST SHOWS ALL STATUSES! - vin: CharField (LIST_APPS NEEDS TO CHECK IF VIN WAS SOLD HERE: MARK VIP) - customer: CharField - technician: ForeignKey Technician, relative_name="appointments", on_delete=PROTECT??
-CREATE_APP_FORM NEEDS A DROP-DOWN FOR TECHNICIAN
+Appointment - date_time: DateTime (SEPARATE DATE/TIME SELECTORS IN CREATE_APP_FORM??)
+
+- reason: CharField (TEXTFIELD??)
+- status: ForeignKey(status, related_name="appointments", on_delete=PROTECT)
+- created/canceled/finished
+  SERVICE_APPOINTMENTS_LIST SHOWS ONLE 'CREATED' APPS, SERVICE_HISTORY_LIST SHOWS ALL STATUSES!
+- vin: CharField (LIST_APPS NEEDS TO CHECK IF VIN WAS SOLD HERE: MARK VIP)
+- customer: CharField - technician: ForeignKey Technician, relative_name="appointments", on_delete=PROTECT??
+  CREATE_APP_FORM NEEDS A DROP-DOWN FOR TECHNICIAN
 
 ## Sales microservice
 
