@@ -41,23 +41,6 @@ function ManufacturerFormEdit(props) {
 
   return (
     <div className="p-3" data-bs-focus={true}>
-      {/* <div className="d-flex justify-content-between">
-        <p>
-          <strong>VIN:</strong>
-          {props.automobile.vin}
-        </p>
-        <p>
-          {" "}
-          <strong>Model:</strong>
-          {props.automobile.model.name}{" "}
-        </p>
-        <p>
-          {" "}
-          <strong>Manufacturer:</strong>
-          {props.automobile.model.manufacturer.name}
-        </p>
-      </div> */}
-
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="updatedForm" className="form-label">
@@ -72,30 +55,6 @@ function ManufacturerFormEdit(props) {
             value={updatedForm.name}
           />
         </div>
-        {/* <div className="mb-3">
-          <label htmlFor="updatedForm2" className="form-label">
-            <strong>Year:</strong>
-          </label>
-          <input
-            onChange={handleFormChange}
-            type="text"
-            name="year"
-            className="form-control"
-            id="updateYear"
-            value={updatedForm.year}
-          />
-        </div>
-        <div className="mb-3 form-check">
-          <label className="form-check-label">Sold</label>
-          <input
-            className="form-check-input"
-            name="sold"
-            type="checkbox"
-            id="updateSold"
-            disabled={true}
-            checked={updatedForm.sold}
-          />
-        </div> */}
         <button className="btn btn-primary">Update</button>
       </form>
     </div>
