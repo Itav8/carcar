@@ -63,7 +63,7 @@ function AutomobileList() {
               <th>Manufacturer</th>
               <th>Sold</th>
               <th className="align-middle text-center">Edit</th>
-              <th className="align-middle text-center">Delete</th>
+              <th className="align-middle text-center">Delete?</th>
             </tr>
           </thead>
           <tbody>
