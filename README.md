@@ -17,6 +17,12 @@ Inventory Microserice
 
 Service Microservice
 
+- IMPORTANT: before testing, CREATE 3 STATUSES IN ADMIN WITH THESE IDS AND NAMES (CASE-SENSITIVE):
+
+  - id 1: 'created'
+  - id 2: 'canceled'
+  - id 3: 'finished'
+
 - Can create New Technician or Service (selecting from available Technicians)
 - Can list all appointments which have not been canceled or finished
 - Can also list a history of all appointments and search by VIN

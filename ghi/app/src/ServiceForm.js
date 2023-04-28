@@ -64,7 +64,6 @@ const ServiceForm = () => {
       const response = await fetch(appointmentsUrl, fetchConfig);
       if (response.ok) {
         const newAppointment = await response.json();
-        console.log(newAppointment);
 
         setVin("");
         setCustomer("");
@@ -76,7 +75,7 @@ const ServiceForm = () => {
         navigate("/services");
       } else {
         setAlert(true);
-        setAlertMessage("Duplicate Manufacturer!");
+        setAlertMessage("Problem with appointment, try again.");
       }
     } catch (error) {
       setAlert(true);
