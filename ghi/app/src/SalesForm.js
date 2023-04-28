@@ -93,8 +93,7 @@ function SalesForm() {
         });
 
         return navigate("/sales");
-      }
-      else {
+      } else {
         const formAlert = document.getElementById("priceAlert");
         const wrapper = document.createElement("div");
         wrapper.innerHTML = [

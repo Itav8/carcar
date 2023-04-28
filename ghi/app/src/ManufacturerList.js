@@ -1,77 +1,93 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect } from "react";
 
 const ManufacturerList = () => {
-    const API_URL = "http://localhost:8100/api/manufacturers"      // for DELETE
-    const [manufacturers, setManufacturers] = useState([]);
+  const API_URL = "http://localhost:8100/api/manufacturers"; // for DELETE
+  const [manufacturers, setManufacturers] = useState([]);
 
-    const apiRequest = async (url = '', optionsObj = null, errMsg = null) => {
-        try {
-            const response = await fetch(url, optionsObj);
-            if (!response.ok) throw Error('Please reload the app');
-        } catch (err) {
-            errMsg = err.message;
-        } finally {         // will always execute whether error or not
-            return errMsg;
-        }
+  const apiRequest = async (url = "", optionsObj = null, errMsg = null) => {
+    try {
+      const response = await fetch(url, optionsObj);
+      if (!response.ok) throw Error("Please reload the app");
+    } catch (err) {
+      errMsg = err.message;
+    } finally {
+      // will always execute whether error or not
+      return errMsg;
     }
+  };
 
-    const handleDelete = async (id) => {
-        const newmanufacturers = manufacturers.filter((manufacturer) => manufacturer.id !== id);
-        setManufacturers(newmanufacturers);
+  const handleDelete = async (id) => {
+    const newmanufacturers = manufacturers.filter(
+      (manufacturer) => manufacturer.id !== id
+    );
+    setManufacturers(newmanufacturers);
 
-        const deleteOptions = { method: 'DELETE' };
-        const reqUrl = `${API_URL}/${id}`;
-        const result = await apiRequest(reqUrl, deleteOptions);
-        if (result) {
-            console.log(result);
-        } else {
-            console.log(`else! ${result}`)
-        }
+    const deleteOptions = { method: "DELETE" };
+    const reqUrl = `${API_URL}/${id}`;
+    const result = await apiRequest(reqUrl, deleteOptions);
+    if (result) {
+      console.log(result);
+    } else {
+      console.log(`else! ${result}`);
     }
+  };
 
-    const fetchData = async () => {
-        const manufacturersResponse = await fetch (API_URL);
-        if(manufacturersResponse.ok) {
-            const data = await manufacturersResponse.json();
-            setManufacturers(data.manufacturers);
-        } else {
-            throw new Error('manufacturers Response not ok!');
-        }
+  const fetchData = async () => {
+    const manufacturersResponse = await fetch(API_URL);
+    if (manufacturersResponse.ok) {
+      const data = await manufacturersResponse.json();
+      setManufacturers(data.manufacturers);
+    } else {
+      throw new Error("manufacturers Response not ok!");
     }
-    useEffect(() => {
-        fetchData();
-    }, []);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-
-    return (
+  return (
     <>
       <h1>Manufacturers</h1>
-    <div className="table-responsive">
-        <table className='table table-striped table-bordered table-hover'>
-            <thead>
-                <tr>
-                    <th className="align-middle text-uppercase fw-bold" style={{fontSize: '1rem'}}>Name</th>
-                    <th className="align-middle text-center">Delete?</th>
+      <div className="table-responsive">
+        <table className="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th
+                className="align-middle text-uppercase fw-bold"
+                style={{ fontSize: "1rem" }}
+              >
+                Name
+              </th>
+              <th className="align-middle text-center">Delete?</th>
+            </tr>
+          </thead>
+          <tbody>
+            {manufacturers.map((manufacturer) => {
+              return (
+                <tr key={manufacturer.id}>
+                  <td
+                    className="align-middle fw-normal px-3"
+                    style={{ fontSize: "1.2rem" }}
+                  >
+                    {manufacturer.name}
+                  </td>
+                  <td className="align-middle px-3 text-center">
+                    <button
+                      className="btn btn-outline-dark"
+                      role="button"
+                      onClick={() => handleDelete(manufacturer.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
-            </thead>
-            <tbody>
-                {manufacturers.map(manufacturer => {
-                    return (
-                        <tr key={manufacturer.id}>
-                            <td className="align-middle fw-normal px-3" style={{fontSize: '1.2rem'}}>{ manufacturer.name }</td>
-                            <td className="align-middle px-3 text-center">
-                                <button className="btn btn-outline-dark" role="button" onClick={() => handleDelete(manufacturer.id)}>
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    )
-                })}
-            </tbody>
+              );
+            })}
+          </tbody>
         </table>
-    </div>
+      </div>
     </>
-    );
-}
+  );
+};
 
-export default ManufacturerList
+export default ManufacturerList;
