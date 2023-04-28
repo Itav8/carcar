@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Alert from './Alert';
 
 const ServiceForm = () => {
     const navigate = useNavigate();
@@ -10,6 +11,8 @@ const ServiceForm = () => {
     const [time, setTime] = useState('');
     const [technician, setTechnician] = useState('');
     const [reason, setReason] = useState('');
+    const [alert, setAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const handleVinChange = (event) => {
         const value = event.target.value;
@@ -39,7 +42,6 @@ const ServiceForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // create an empty JSON object
         const data = {};
 
         data.vin = vin;
@@ -59,6 +61,7 @@ const ServiceForm = () => {
           },
         };
 
+        try {
         const response = await fetch(appointmentsUrl, fetchConfig);
         if (response.ok) {
             const newAppointment = await response.json();
@@ -73,18 +76,13 @@ const ServiceForm = () => {
 
             navigate("/services");
         } else {
-            const formAlert = document.getElementById("reasonAlert");
-            const wrapper = document.createElement('div')
-            wrapper.innerHTML = [
-                `<div class="alert alert-danger alert-dismissible" role="alert">`,
-                `   <div>Problem with form, please try again.</div>`,
-                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-                '</div>'
-            ].join('')
-
-            formAlert.append(wrapper);
-
+            setAlert(true);
+            setAlertMessage("Duplicate Manufacturer!");
         }
+    } catch(error) {
+        setAlert(true);
+        setAlertMessage("Problem with request, try again later.");
+    }
     }
 
     const fetchData = async () => {
@@ -101,9 +99,6 @@ const ServiceForm = () => {
     useEffect(() => {
         fetchData();
     }, []);
-
-
-
 
 
   return (
@@ -150,6 +145,12 @@ const ServiceForm = () => {
             </div>
         </div>
         </div>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     </div>
   )
 }

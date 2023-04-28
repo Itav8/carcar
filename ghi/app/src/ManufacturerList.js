@@ -1,8 +1,11 @@
 import { React, useState, useEffect } from 'react'
+import Alert from './Alert';
 
 const ManufacturerList = () => {
-    const API_URL = "http://localhost:8100/api/manufacturers"      // for DELETE
+    const API_URL = "http://localhost:8100/api/manufacturers"
     const [manufacturers, setManufacturers] = useState([]);
+    const [alert, setAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const apiRequest = async (url = '', optionsObj = null, errMsg = null) => {
         try {
@@ -10,22 +13,23 @@ const ManufacturerList = () => {
             if (!response.ok) throw Error('Please reload the app');
         } catch (err) {
             errMsg = err.message;
-        } finally {         // will always execute whether error or not
+        } finally {
             return errMsg;
         }
     }
 
     const handleDelete = async (id) => {
-        const newmanufacturers = manufacturers.filter((manufacturer) => manufacturer.id !== id);
-        setManufacturers(newmanufacturers);
-
         const deleteOptions = { method: 'DELETE' };
         const reqUrl = `${API_URL}/${id}`;
         const result = await apiRequest(reqUrl, deleteOptions);
         if (result) {
-            console.log(result);
+            setAlert(true);
+            setAlertMessage("Problem with delete, try again later.");
         } else {
-            console.log(`else! ${result}`)
+            setAlert(true);
+            setAlertMessage("Successfully Deleted!");
+            const newmanufacturers = manufacturers.filter((manufacturer) => manufacturer.id !== id);
+            setManufacturers(newmanufacturers);
         }
     }
 
@@ -46,6 +50,12 @@ const ManufacturerList = () => {
     return (
     <>
       <h1>Manufacturers</h1>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     <div className="table-responsive">
         <table className='table table-striped table-bordered table-hover'>
             <thead>

@@ -1,12 +1,15 @@
 import { React, useState, useEffect } from 'react'
+import Modal from "./Modal";
+import Alert from './Alert';
 
 const AppointmentList = () => {
-    const APPOINTMENTS_URL = "http://localhost:8080/api/appointments"      // for Cancel, Finish
+    const APPOINTMENTS_URL = "http://localhost:8080/api/appointments"
     const AUTOMOBILEVOS_URL = "http://localhost:8080/api/automobileVOs"
 
     const [appointments, setAppointments] = useState([]);
     const [vins, setVins] = useState([]);
-    // const [isVIP, setIsVIP] = useState([]);
+    const [alert, setAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const apiRequest = async (url = '', optionsObj = null, errMsg = null) => {
         try {
@@ -14,55 +17,33 @@ const AppointmentList = () => {
             if (!response.ok) throw Error('Please reload the app');
         } catch (err) {
             errMsg = err.message;
-        } finally {         // will always execute whether error or not
+        } finally {
             return errMsg;
         }
     }
 
     const handleCancel = async (id) => {
-        const newAppointments = appointments.filter((appointment) => appointment.id !== id);  // CODE FOR DELETE
-        setAppointments(newAppointments);
-
         const putOptions = { method: 'PUT' };
         const reqUrl = `${APPOINTMENTS_URL}/${id}/cancel`;
         const result = await apiRequest(reqUrl, putOptions);
         if (result) {
-            console.log(result);
+            const newAppointments = appointments.filter((appointment) => appointment.id !== id);
+            setAppointments(newAppointments);
         } else {
-            const formAlert = document.getElementById("tableAlert");
-            const wrapper = document.createElement('div')
-            wrapper.innerHTML = [
-                `<div class="alert alert-danger alert-dismissible" role="alert">`,
-                `   <div>Could not cancel!</div>`,
-                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-                '</div>'
-            ].join('')
-
-            formAlert.append(wrapper);
-
+            setAlert(true);
+            setAlertMessage("Could not Cancel!");
         }
     }
     const handleFinish = async (id) => {
-        const newAppointments = appointments.filter((appointment) => appointment.id !== id);  // CODE FOR DELETE
-        setAppointments(newAppointments);
-
         const putOptions = { method: 'PUT' };
         const reqUrl = `${APPOINTMENTS_URL}/${id}/finish`;
         const result = await apiRequest(reqUrl, putOptions);
         if (result) {
-            console.log(result);
+            const newAppointments = appointments.filter((appointment) => appointment.id !== id);
+            setAppointments(newAppointments);
         } else {
-            const formAlert = document.getElementById("tableAlert");
-            const wrapper = document.createElement('div')
-            wrapper.innerHTML = [
-                `<div class="alert alert-danger alert-dismissible" role="alert">`,
-                `   <div>Could not finish!</div>`,
-                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-                '</div>'
-            ].join('')
-
-            formAlert.append(wrapper);
-
+            setAlert(true);
+            setAlertMessage("Could not Finish!");
         }
     }
 
@@ -75,7 +56,7 @@ const AppointmentList = () => {
         } else {
             throw new Error('Appointments Response not ok!');
         }
-        if(automobileVOsResponse.ok) {      // CREATE ARRAY OF ALL VINS FROM INVENTORY
+        if(automobileVOsResponse.ok) {
             const data = await automobileVOsResponse.json();
             console.log(data);
 
@@ -95,6 +76,14 @@ const AppointmentList = () => {
 
 
     return (
+        <>
+        <h1>Service Appointments</h1>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     <div className="table-responsive">
         <table className='table table-striped table-bordered table-hover'>
             <thead className="tableAlert">
@@ -112,7 +101,12 @@ const AppointmentList = () => {
             <tbody>
                 {appointments.map(appointment => {
                     return (
-                        <tr key={appointment.id}>
+                        <tr
+                            key={appointment.id}
+                            data-bs-toggle="modal"
+                            data-bs-target="#appointmentModal"
+                            role="button"
+                        >
                             <td className="align-middle fw-bold px-3" style={{fontSize: '1rem'}}>{ appointment.vin }</td>
                             <td className="align-middle px-3"
                                 style={{fontSize: '1rem', color: (vins.indexOf(appointment.vin) > -1) ? 'green' : 'black'}}
@@ -138,8 +132,15 @@ const AppointmentList = () => {
                 })}
             </tbody>
         </table>
+      <Modal
+        id="appointmentModal"
+        title="Edit Appointment"
+      >
+        <p></p>
+      </Modal>
     </div>
-    )
+    </>
+    );
 }
 
 export default AppointmentList

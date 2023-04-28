@@ -1,8 +1,11 @@
 import { React, useState, useEffect } from 'react'
+import Alert from './Alert';
 
 const TechnicianList = () => {
-    const API_URL = "http://localhost:8080/api/technicians"      // for DELETE
+    const API_URL = "http://localhost:8080/api/technicians";
     const [technicians, setTechnicians] = useState([]);
+    const [alert, setAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const apiRequest = async (url = '', optionsObj = null, errMsg = null) => {
         try {
@@ -10,22 +13,23 @@ const TechnicianList = () => {
             if (!response.ok) throw Error('Please reload the app');
         } catch (err) {
             errMsg = err.message;
-        } finally {         // will always execute whether error or not
+        } finally {
             return errMsg;
         }
     }
 
     const handleDelete = async (employee_id) => {
-        const newTechnicians = technicians.filter((technician) => technician.employee_id !== employee_id);
-        setTechnicians(newTechnicians);
-
         const deleteOptions = { method: 'DELETE' };
         const reqUrl = `${API_URL}/${employee_id}`;
         const result = await apiRequest(reqUrl, deleteOptions);
         if (result) {
-            console.log(result);
+            setAlert(true);
+            setAlertMessage("Problem with delete, if technicians are assigned to appointments, please re-assign before delete.");
         } else {
-            console.log(`else! ${result}`)
+            setAlert(true);
+            setAlertMessage("Successfully Deleted!");
+            const newTechnicians = technicians.filter((technician) => technician.employee_id !== employee_id);
+            setTechnicians(newTechnicians);
         }
     }
 
@@ -44,6 +48,14 @@ const TechnicianList = () => {
 
 
     return (
+        <>
+          <h1>Technicians</h1>
+            <Alert
+                alert={alert}
+                message={alertMessage}
+            >
+                <></>
+            </Alert>
     <div className="table-responsive">
         <table className='table table-striped table-bordered table-hover'>
             <thead>
@@ -72,7 +84,8 @@ const TechnicianList = () => {
             </tbody>
         </table>
     </div>
-    )
+    </>
+    );
 }
 
 export default TechnicianList

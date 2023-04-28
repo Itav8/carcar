@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
-// add a detail feature when you name (id)
+import Alert from './Alert';
+
 function AutomobileList() {
   const [isOpen, setIsOpen] = useState(false);
   const [automobiles, setAutomobiles] = useState([]);
-
-  // onClick passsing event
-  // if the isOpen is false, open
-  // otherwise, is closed
-  // const toggle = () => {
-  //   setIsOpen(!isOpen);
-  // }
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleDelete = async (vin) => {
     const url = `http://localhost:8100/api/automobiles/${vin}/`;
@@ -24,9 +20,14 @@ function AutomobileList() {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
+      setAlert(true);
+      setAlertMessage("Successfully Deleted!");
       setAutomobiles(
         automobiles.filter((automobile) => automobile.vin !== vin)
       );
+    } else {
+      setAlert(true);
+      setAlertMessage("Problem with delete, try again later.");
     }
   };
 
@@ -52,6 +53,12 @@ function AutomobileList() {
   return (
     <>
       <h1>Automobiles</h1>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     <div className="table-responsive">
       <table className="table table-striped table-bordered table-hover">
         <thead>

@@ -1,9 +1,12 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Alert from './Alert';
 
 const ManufacturerForm = () => {
     const navigate = useNavigate();
     const [name, setName] = useState([]);
+    const [alert, setAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const handleNameChange = (event) => {
         const value = event.target.value;
@@ -26,29 +29,24 @@ const ManufacturerForm = () => {
             },
         };
 
-        const response = await fetch(manufacturerURL, fetchConfig);
-        if (response.ok) {
-            const newManufacturer = await response.json();
-            console.log(newManufacturer);         // DELETE THIS CODE LATER??
 
-            setName('');
+        try {
+            const response = await fetch(manufacturerURL, fetchConfig);
+            if (response.ok) {
+                const newManufacturer = await response.json();
+                setName('');
 
-            navigate("/manufacturers");
-        } else {
-            const formAlert = document.getElementById("nameAlert");
-            const wrapper = document.createElement('div')
-            wrapper.innerHTML = [
-                `<div class="alert alert-danger alert-dismissible" role="alert">`,
-                `   <div>Manufacturer already exists!</div>`,
-                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-                '</div>'
-            ].join('')
+                navigate("/manufacturers");
+            } else {
+                setAlert(true);
+                setAlertMessage("Duplicate Manufacturer!");
+            }
 
-            formAlert.append(wrapper);
-
+        } catch(error) {
+            setAlert(true);
+            setAlertMessage("Problem with request, try again later.");
         }
     }
-
 
 
   return (
@@ -56,7 +54,7 @@ const ManufacturerForm = () => {
     <div className="row">
     <div className="offset-3 col-6">
     <div className="shadow p-4 mt-4">
-    <h1 id="manufacturerAlert">Create a Manufacturer</h1>
+    <h1>Create a Manufacturer</h1>
         <form onSubmit={handleSubmit} id="create-manufacturer-form">
             <div id="nameAlert" className="form-floating mb-3">
                 <input value={name} onChange={handleNameChange} required placeholder="Name of Manufacturer" type="text" id="name" name="name" className="form-control" />
@@ -67,6 +65,12 @@ const ManufacturerForm = () => {
         </div>
         </div>
         </div>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     </div>
   )
 }

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Alert from './Alert';
 
 function SalesList() {
   const [sales, setSales] = useState([]);
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleDelete = async (salesId) => {
     const url = `http://localhost:8090/api/sales/${salesId}/`;
@@ -15,8 +18,12 @@ function SalesList() {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
+      setAlert(true);
+      setAlertMessage("Successfully Deleted!");
       setSales(sales.filter((sale) => sale.id !== salesId));
-    }
+    } else {
+      setAlert(true);
+      setAlertMessage("Problem with delete, try again later.");}
   };
 
   const priceFormatter = new Intl.NumberFormat("en-US", {
@@ -41,6 +48,12 @@ function SalesList() {
   return (
     <>
       <h1>Sales</h1>
+        <Alert
+            alert={alert}
+            message={alertMessage}
+        >
+            <></>
+        </Alert>
     <div className="table-responsive">
       <table className="table table-striped table-bordered table-hover">
         <thead>
