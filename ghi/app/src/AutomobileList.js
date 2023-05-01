@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import Alert from "./Alert";
 import AutomobileFormEdit from "./AutomobileFormEdit";
+import AutomobileInfo from "./AutomobileInfo";
 
 function AutomobileList() {
   const [automobiles, setAutomobiles] = useState([]);
@@ -62,6 +63,7 @@ function AutomobileList() {
               <th>Model</th>
               <th>Manufacturer</th>
               <th>Sold</th>
+              <th className="align-middle text-center">More info</th>
               <th className="align-middle text-center">Edit</th>
               <th className="align-middle text-center">Delete?</th>
             </tr>
@@ -82,6 +84,18 @@ function AutomobileList() {
                   <td>{automobile.model.name}</td>
                   <td>{automobile.model.manufacturer.name}</td>
                   <td>{isSold}</td>
+                  <td className="align-middle px-3 text-center">
+                    <button
+                      className="btn btn-outline-dark"
+                      data-bs-toggle="modal"
+                      data-bs-target={`#automobileInfo-${i}`}
+                    >
+                      More info
+                    </button>
+                    <Modal id={`automobileInfo-${i}`} title="Automobile Info">
+                      <AutomobileInfo automobile={automobile} />
+                    </Modal>
+                  </td>
                   <td className="align-middle px-3 text-center">
                     <button
                       className="btn btn-outline-dark"

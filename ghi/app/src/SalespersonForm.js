@@ -72,6 +72,7 @@ function SalespersonForm() {
                 type="text"
                 name="firstName"
                 className="form-control"
+                value={formData.firstName}
               />
               <label htmlFor="firstName">First name...</label>
             </div>

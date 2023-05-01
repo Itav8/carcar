@@ -185,6 +185,7 @@ function SalesForm() {
                 type="number"
                 name="price"
                 className="form-control"
+                min={0}
               />
               <label htmlFor="price">$</label>
             </div>
