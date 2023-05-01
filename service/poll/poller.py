@@ -4,16 +4,17 @@ import sys
 import time
 import json
 import requests
-from service_rest.models import AutomobileVO
 
 sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "service_project.settings")
 django.setup()
 
+from service_rest.models import AutomobileVO
+
 
 def poll():
     while True:
-        print('Service poller polling for data')
+        print("Service poller polling for data")
         try:
             response = requests.get("http://inventory-api:8000/api/automobiles/")
             content = json.loads(response.content)
