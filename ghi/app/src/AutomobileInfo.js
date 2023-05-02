@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 
 function AutomobileInfo(props) {
   const [automobile, setAutomobile] = useState({});
-  console.log("PROPS", props.automobile);
-
 
   useEffect(() => {
     const fetchAutomobileInfo = async () => {
@@ -13,23 +11,50 @@ function AutomobileInfo(props) {
 
       if (automobileInfo.ok) {
         const data = await automobileInfo.json();
-        console.log("DATA", data);
         setAutomobile(data);
       }
     };
     fetchAutomobileInfo();
   }, []);
 
+  let isSold = automobile.sold
+  if (isSold) {
+    isSold = "Yes"
+  } else {
+    isSold = "No"
+  }
+
   return (
     <div>
-      <img className="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKF7un7rdumxHU9gmGv_eQFCx4ct0cPjtttw&usqp=CAU" />
+      <img
+        className="card-img-top"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKF7un7rdumxHU9gmGv_eQFCx4ct0cPjtttw&usqp=CAU"
+      />
       <div>
-        {/* <h5>{automobile.model.manufacturer.name}</h5> */}
-        {/* <p>{automobile.model.name}</p> */}
-        <p>{automobile.vin}</p>
-        <p>{automobile.year}</p>
-        <p>{automobile.color}</p>
-        {/* <p>{automobile.sold}</p> */}
+        <p className="text-start">
+          <strong>VIN: </strong>
+          {automobile.vin}
+        </p>
+        <p className="text-start">
+          <strong>Manufacturer:</strong>
+          {automobile?.model?.manufacturer?.name}
+        </p>
+        <p className="text-start">
+          <strong>Model: </strong>
+          {automobile?.model?.name}
+        </p>
+        <p className="text-start">
+          <strong>Year: </strong>
+          {automobile.year}
+        </p>
+        <p className="text-start">
+          <strong>Color: </strong>
+          {automobile.color}
+        </p>
+        <p className="text-start">
+          <strong>Sold: </strong>
+          {isSold}
+        </p>
       </div>
     </div>
   );
