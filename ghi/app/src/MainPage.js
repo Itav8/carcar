@@ -1,5 +1,6 @@
 import styles from "./Dashboard.module.css";
-import Charts from "./Charts";
+import SalesChart from "./SalesChart";
+import AutomobileChart from "./AutomobileChart";
 
 function MainPage() {
   return (
@@ -11,7 +12,8 @@ function MainPage() {
             <p className="lead mb-4">
               The premiere solution for automobile dealership management!
             </p>
-            <Charts />
+            <SalesChart />
+            <AutomobileChart />
           </div>
         </div>
       </div>
