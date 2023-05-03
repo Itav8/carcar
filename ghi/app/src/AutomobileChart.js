@@ -38,7 +38,7 @@ const AutomobileChart = () => {
     }, {});
 
     const chart = new Chart(document.getElementById("automobileCharts"), {
-      type: "polarArea",
+      type: "pie",
       data: {
         labels: Object.keys(data),
         datasets: [
