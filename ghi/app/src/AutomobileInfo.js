@@ -14,14 +14,15 @@ function AutomobileInfo(props) {
         setAutomobile(data);
       }
     };
+
     fetchAutomobileInfo();
   }, []);
 
-  let isSold = automobile.sold
+  let isSold = automobile.sold;
   if (isSold) {
-    isSold = "Yes"
+    isSold = "Yes";
   } else {
-    isSold = "No"
+    isSold = "No";
   }
 
   return (
