@@ -29,7 +29,10 @@ function AutomobileInfo(props) {
     <div>
       <img
         className="card-img-top"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKF7un7rdumxHU9gmGv_eQFCx4ct0cPjtttw&usqp=CAU"
+        src={
+          automobile.model.picture_url ||
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKF7un7rdumxHU9gmGv_eQFCx4ct0cPjtttw&usqp=CAU"
+        }
       />
       <div>
         <p className="text-start">
